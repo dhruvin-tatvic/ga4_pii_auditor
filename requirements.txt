@@ -1,0 +1,10 @@
+google-analytics-data
+google-api-python-client
+google-auth
+google-auth-httplib2
+google-auth-oauthlib
+jinja2
+python-dotenv
+
+google-cloud-secret-manager
+functions-framework

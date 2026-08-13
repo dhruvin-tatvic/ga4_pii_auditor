@@ -1,0 +1,14 @@
+# Ignore everything
+*
+
+# Allow the .gitignore itself
+!.gitignore
+
+# Allow required files
+!requirements.txt
+!main.py
+
+# Allow templates folder
+!templates/
+!templates/clean_report.html
+!templates/urgent_report.html
