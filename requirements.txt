@@ -7,4 +7,5 @@ jinja2
 python-dotenv
 
 google-cloud-secret-manager
-functions-framework
+Flask
+gunicorn
