@@ -4,13 +4,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GOOGLE_SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
-SHEET_RANGE = os.getenv("SHEET_RANGE", "Sheet1!A2:J")
+SHEET_RANGE = os.getenv("SHEET_RANGE", "A2:H")
 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_NAME = os.getenv("SENDER_NAME", "GA4 Compliance Monitor")
 
 GCP_PROJECT = os.getenv("GCP_PROJECT")
 OAUTH_CREDENTIALS_JSON = os.getenv("OAUTH_CREDENTIALS_JSON")
+
+TOKEN_DHRUVIN = os.getenv("TOKEN_DHRUVIN")
+TOKEN_PREM = os.getenv("TOKEN_PREM")
+TOKEN_ENTERPRISE = os.getenv("TOKEN_ENTERPRISE")
+TOKEN_DATA_ANALYTICS = os.getenv("TOKEN_DATA_ANALYTICS")
+TOKEN_TVS = os.getenv("TOKEN_TVS")
+
+ACCESS_TOKENS = {
+    "dhruvin@tatvic.com": TOKEN_DHRUVIN,
+    "premium@tatvic.com": TOKEN_PREM,
+    "enterprise@tatvic.com": TOKEN_ENTERPRISE,
+    "data.analytics@tatvic.com": TOKEN_DATA_ANALYTICS,
+    "tvsm@tatvic.com": TOKEN_TVS,
+}
 
 if not OAUTH_CREDENTIALS_JSON and GCP_PROJECT:
     try:
@@ -28,7 +42,7 @@ if not OAUTH_CREDENTIALS_JSON and os.path.exists("oauth_credentials.json"):
         OAUTH_CREDENTIALS_JSON = f.read()
     print("Loaded OAuth credentials from local file.")
 
-BASE_DIMENSIONS = [dim.strip() for dim in os.getenv("BASE_DIMENSIONS", "page_location,page_referrer").split(",") if dim.strip()]
+BASE_DIMENSIONS = [dim.strip() for dim in os.getenv("BASE_DIMENSIONS", "pageLocation,pageReferrer").split(",") if dim.strip()]
 
 def validate_config():
     missing = []

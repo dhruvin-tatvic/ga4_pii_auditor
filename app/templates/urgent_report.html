@@ -173,8 +173,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="https://www.tatvic.com/wp-content/uploads/2021/05/tatvic-logo.svg" alt="Tatvic Logo" style="height: 32px; margin-bottom: 16px; filter: brightness(0) invert(1);">
-            <h2>[URGENT] GA4 PII Leak Detected</h2>
+            <img src="https://www.tatvic.com/wp-content/uploads/2026/08/whitepurple_150px-1.png" alt="Tatvic Logo" style="height: 32px; margin-bottom: 16px;">
+            <h2>GA4 PII Leak Detected</h2>
             <p>Automated Compliance Monitoring System</p>
         </div>
         <div class="content">
@@ -195,21 +195,25 @@
                 </tr>
             </table>
 
-            <div class="section-title">FLAGGED DATA INSTANCES</div>
+            <div class="section-title">FLAGGED DATA SUMMARY</div>
+            <p style="font-size: 14px; font-weight: 500; color: #7500FF; margin-top: -10px; margin-bottom: 20px;">
+                Total Leaks Detected: <strong>{{ total_leaks }}</strong><br>
+                <em>Detailed values have been securely attached to this email as an Excel spreadsheet.</em>
+            </p>
             <table class="leaks-table">
                 <thead>
                     <tr>
                         <th>Dimension</th>
-                        <th>Flagged Value</th>
                         <th>Type</th>
+                        <th>Leak Count</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for leak in leaks %}
+                    {% for summary in leak_summary %}
                     <tr>
-                        <td>{{ leak.dimension }}</td>
-                        <td class="flagged-value">{{ leak.flagged_value }}</td>
-                        <td>{{ leak.type }}</td>
+                        <td>{{ summary.dimension }}</td>
+                        <td>{{ summary.type }}</td>
+                        <td class="flagged-value">{{ summary.count }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>

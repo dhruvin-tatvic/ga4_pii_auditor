@@ -2,30 +2,41 @@ import re
 
 class PIIDetector:
     def __init__(self):
-        self.email_regex = re.compile(r'([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)')
-        self.phone_regex = re.compile(r'(\+?\d{1,3}?[-.\s]?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4})')
+        self.email_regex = re.compile(r'[a-zA-Z0-9_.+-]+(?:@|%40)[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+', flags=re.IGNORECASE)
+        self.phone_regex = re.compile(r'\b(?:(?:\+|%2B)(?:1|91)[-.\s%20])?\(?[2-9]\d{2}\)?[-.\s%20]+[2-9]\d{2}[-.\s%20]+\d{4}\b|\b(?:\+|%2B)(?:1|91)[-.\s%20][2-9]\d{9}\b')
+        self.name_regex = re.compile(r'(?:\b||-)(?:first_?name|last_?name|fname|lname|name)=([^&#\s]+)', flags=re.IGNORECASE)
 
     def scan_value(self, value):
-        if not value or not isinstance(value, str):
-            return []
-        found_pii = []
-        for email in self.email_regex.findall(value):
-            found_pii.append({"type": "Email Address", "matched_string": email})
-        for phone in self.phone_regex.findall(value):
-            digit_count = len(re.sub(r'\D', '', phone))
-            if 10 <= digit_count <= 15:
-                found_pii.append({"type": "Phone Number", "matched_string": phone})
-        return found_pii
+        try:
+            if not value or not isinstance(value, str):
+                return []
+            found_pii = []
+            
+            for m in self.email_regex.finditer(value):
+                found_pii.append({"type": "Email Address", "matched_string": m.group(0)})
+                
+            for m in self.phone_regex.finditer(value):
+                found_pii.append({"type": "Phone Number", "matched_string": m.group(0)})
+                
+            for m in self.name_regex.finditer(value):
+                found_pii.append({"type": "Name", "matched_string": m.group(0)})
+                
+            return found_pii
+        except Exception as e:
+            raise Exception(f"PII scan error: {e}")
 
     def scan_row(self, row_data, dimensions):
-        leaks = []
-        for dimension in dimensions:
-            value = row_data.get(dimension, "")
-            detected = self.scan_value(value)
-            for item in detected:
-                leaks.append({
-                    "dimension": dimension,
-                    "flagged_value": value,
-                    "type": item["type"]
-                })
-        return leaks
+        try:
+            leaks = []
+            for dimension in dimensions:
+                value = row_data.get(dimension, "")
+                detected = self.scan_value(value)
+                for item in detected:
+                    leaks.append({
+                        "dimension": dimension,
+                        "flagged_value": value,
+                        "type": item["type"]
+                    })
+            return leaks
+        except Exception as e:
+            raise Exception(f"Row scan error: {e}")

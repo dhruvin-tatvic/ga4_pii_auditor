@@ -19,6 +19,7 @@ steps:
       - '--region'
       - 'asia-south1'
       - '--allow-unauthenticated'
+      - '--set-secrets=TOKEN_DHRUVIN=TOKEN_DHRUVIN:latest,TOKEN_PREM=TOKEN_PREM:latest,TOKEN_ENTERPRISE=TOKEN_ENTERPRISE:latest,TOKEN_DATA_ANALYTICS=TOKEN_DATA_ANALYTICS:latest,TOKEN_TVS=TOKEN_TVS:latest,GOOGLE_SHEET_ID=GOOGLE_SHEET_ID:latest,SENDER_EMAIL=SENDER_EMAIL:latest'
 
 images:
   - 'gcr.io/$PROJECT_ID/ga4-pii-auditor-prod:$COMMIT_SHA'
