@@ -17,7 +17,7 @@ class EmailSender:
 
     def send_email(self, recipient_email, cc_email, subject, html_content, attachment_path=None):
         try:
-            msg = MIMEMultipart('alternative')
+            msg = MIMEMultipart('mixed')
             msg['Subject'] = subject
             msg['From'] = f"{self.sender_name} <{self.sender_email}>"
             msg['To'] = recipient_email
