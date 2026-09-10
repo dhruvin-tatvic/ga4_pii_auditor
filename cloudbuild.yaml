@@ -1,11 +1,11 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/ga4-pii-auditor:$COMMIT_SHA', '.']
+    args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ga4_pii_auditor/ga4-pii-auditor:$COMMIT_SHA', '.']
 
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/ga4-pii-auditor:$COMMIT_SHA']
+    args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ga4_pii_auditor/ga4-pii-auditor:$COMMIT_SHA']
 
   # Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -15,13 +15,13 @@ steps:
       - 'deploy'
       - 'ga4-pii-auditor'
       - '--image'
-      - 'gcr.io/$PROJECT_ID/ga4-pii-auditor:$COMMIT_SHA'
+      - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ga4_pii_auditor/ga4-pii-auditor:$COMMIT_SHA'
       - '--region'
       - 'asia-south1'
       - '--allow-unauthenticated'
       - '--service-account=ga4-pii-auditor-sa@tvc-ga4-pii-auditor.iam.gserviceaccount.com'
       - '--set-env-vars=GCP_PROJECT=$PROJECT_ID'
-      - '--set-secrets=TOKEN_DHRUVIN=TOKEN_DHRUVIN:latest,TOKEN_PREM=TOKEN_PREM:latest,TOKEN_ENTERPRISE=TOKEN_ENTERPRISE:latest,TOKEN_DATA_ANALYTICS=TOKEN_DATA_ANALYTICS:latest,TOKEN_TVS=TOKEN_TVS:latest,GOOGLE_SHEET_ID=GOOGLE_SHEET_ID:latest,SENDER_EMAIL=SENDER_EMAIL:latest'
+
 
 images:
-  - 'gcr.io/$PROJECT_ID/ga4-pii-auditor:$COMMIT_SHA'
+  - 'asia-south1-docker.pkg.dev/$PROJECT_ID/cloud-run-source-deploy/ga4_pii_auditor/ga4-pii-auditor:$COMMIT_SHA'
