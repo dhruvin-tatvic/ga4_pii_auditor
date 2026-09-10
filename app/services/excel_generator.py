@@ -1,10 +1,12 @@
 import os
+import tempfile
 import openpyxl
 from openpyxl.styles import Font, PatternFill
 
 class ExcelGenerator:
-    def __init__(self, temp_dir="/tmp"):
-        self.temp_dir = temp_dir
+    def __init__(self, temp_dir=None):
+        self.temp_dir = temp_dir or tempfile.gettempdir()
+        os.makedirs(self.temp_dir, exist_ok=True)
 
     def generate_excel_report(self, client_name, property_id, start_date, end_date, leaks):
         """

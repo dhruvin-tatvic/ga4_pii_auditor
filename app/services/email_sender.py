@@ -1,5 +1,6 @@
 import os
 import base64
+import mimetypes
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -23,20 +24,27 @@ class EmailSender:
             msg['To'] = recipient_email
             if cc_email:
                 msg['Cc'] = cc_email
-            part = MIMEText(html_content, 'html')
-            msg.attach(part)
+
+            # Wrap HTML content in an alternative subpart
+            body_container = MIMEMultipart('alternative')
+            body_part = MIMEText(html_content, 'html', 'utf-8')
+            body_container.attach(body_part)
+            msg.attach(body_container)
             
             if attachment_path and os.path.exists(attachment_path):
+                filename = os.path.basename(attachment_path)
+                content_type, _ = mimetypes.guess_type(attachment_path)
+                if not content_type:
+                    content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                
+                maintype, subtype = content_type.split('/', 1)
+                mime_base = MIMEBase(maintype, subtype)
                 with open(attachment_path, "rb") as attachment:
-                    mime_base = MIMEBase('application', 'octet-stream')
                     mime_base.set_payload(attachment.read())
                 
                 encoders.encode_base64(mime_base)
-                filename = os.path.basename(attachment_path)
-                mime_base.add_header(
-                    'Content-Disposition',
-                    f'attachment; filename="{filename}"'
-                )
+                mime_base.add_header('Content-Disposition', 'attachment', filename=filename)
+                mime_base.add_header('Content-Type', f'{content_type}; name="{filename}"')
                 msg.attach(mime_base)
             
             encoded_message = base64.urlsafe_b64encode(msg.as_bytes()).decode()
