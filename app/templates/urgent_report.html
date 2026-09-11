@@ -200,21 +200,22 @@
 
         .scorecards-container {
             display: flex;
-            justify-content: space-between;
             gap: 16px;
             margin-bottom: 24px;
-            flex-wrap: nowrap;
+            width: 100%;
         }
 
         .scorecard {
             background: linear-gradient(135deg, #f0f0f0 0%, #ffffff 100%);
             border: 1px solid #E6E2F1;
             border-radius: 8px;
-            padding: 20px;
+            padding: 24px 16px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-            flex: 1;
-            min-width: 0;
+            flex: 1 1 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .scorecard-value {
@@ -235,7 +236,7 @@
 
         @media (max-width: 600px) {
             .scorecards-container {
-                grid-template-columns: 1fr;
+                flex-direction: column;
             }
         }
     </style>
