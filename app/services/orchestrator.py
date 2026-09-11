@@ -83,6 +83,7 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
         
             try:
                 leaks = ga4_client.audit_property(property_id, start_date=start_date_query, end_date=end_date_query, dimensions=dimensions_to_scan)
+                total_event_count = ga4_client.get_total_event_count(property_id, start_date=start_date_query, end_date=end_date_query)
             
                 attachment_path = None
                 if leaks:
@@ -98,7 +99,8 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
                     property_id=property_id,
                     start_date=display_start,
                     end_date=display_end,
-                    leaks=leaks
+                    leaks=leaks,
+                    total_overall_count=total_event_count
                 )
             
                 print(f"  -> Sending report to {recipient_email}...")
@@ -205,6 +207,7 @@ def run_single_audit(payload):
     
     try:
         leaks = ga4_client.audit_property(property_id, start_date=start_date_query, end_date=end_date_query, dimensions=dimensions_to_scan)
+        total_event_count = ga4_client.get_total_event_count(property_id, start_date=start_date_query, end_date=end_date_query)
         
         attachment_path = None
         if leaks:
@@ -220,7 +223,8 @@ def run_single_audit(payload):
             property_id=property_id,
             start_date=display_start,
             end_date=display_end,
-            leaks=leaks
+            leaks=leaks,
+            total_overall_count=total_event_count
         )
         
         print(f"  -> Sending report to {recipient_email}...")

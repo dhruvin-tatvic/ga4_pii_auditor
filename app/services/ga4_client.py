@@ -57,6 +57,24 @@ class GA4Client:
             print(f"Failed to fetch custom dimensions for {property_id}: {e}")
             return []
 
+    def get_total_event_count(self, property_id, start_date, end_date):
+        """Fetch total event count from GA4 for the given date range"""
+        try:
+            property_path = f"properties/{property_id}"
+            request = RunReportRequest(
+                property=property_path,
+                metrics=[Metric(name="eventCount")],
+                date_ranges=[DateRange(start_date=start_date, end_date=end_date)],
+            )
+            response = self.client.run_report(request)
+            if response.rows:
+                total_count = int(response.rows[0].metric_values[0].value)
+                return total_count
+            return 0
+        except Exception as e:
+            print(f"Error fetching total event count for {property_id}: {e}")
+            return 0
+
     def audit_property(self, property_id, start_date, end_date, dimensions):
         property_path = f"properties/{property_id}"
         metrics = [Metric(name="activeUsers")]
