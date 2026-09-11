@@ -174,85 +174,6 @@
             font-family: monospace;
         }
 
-        .scorecards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .scorecard {
-            background-color: #F9FAFB;
-            border: 1px solid #E6E2F1;
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-        }
-
-        .scorecard-value {
-            font-size: 32px;
-            font-weight: 700;
-            color: #7500FF;
-            margin: 8px 0;
-        }
-
-        .scorecard-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: #676767;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .dimensions-summary-table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-            margin-bottom: 24px;
-            font-size: 14px;
-            border: 1px solid #E6E2F1;
-        }
-
-        .dimensions-summary-table th,
-        .dimensions-summary-table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #E6E2F1;
-            border-right: 1px solid #E6E2F1;
-        }
-
-        .dimensions-summary-table th:last-child,
-        .dimensions-summary-table td:last-child {
-            border-right: none;
-        }
-
-        .dimensions-summary-table th {
-            background-color: #F3F4F6;
-            color: #000000;
-            font-weight: 600;
-        }
-
-        .dimensions-summary-table td {
-            color: #676767;
-        }
-
-        .dimensions-summary-table th:nth-child(1),
-        .dimensions-summary-table td:nth-child(1) {
-            width: 80%;
-        }
-
-        .dimensions-summary-table th:nth-child(2),
-        .dimensions-summary-table td:nth-child(2) {
-            width: 20%;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            .scorecards-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .footer-section-title {
             color: #000000;
             font-size: 18px;
@@ -312,61 +233,10 @@
             </table>
 
             <div class="section-title">FLAGGED DATA SUMMARY</div>
-            
-            <!-- Scorecards Section -->
-            <div class="scorecards-container">
-                <div class="scorecard">
-                    <div class="scorecard-label">% PII Detected</div>
-                    <div class="scorecard-value">{{ ((unique_dimensions_count / 20) * 100) | round(1) }}%</div>
-                    <div style="font-size: 12px; color: #999; margin-top: 8px;">{{ unique_dimensions_count }} of ~20 dims</div>
-                </div>
-                <div class="scorecard">
-                    <div class="scorecard-label">Total Leaks Detected</div>
-                    <div class="scorecard-value">{{ total_leaks }}</div>
-                    <div style="font-size: 12px; color: #999; margin-top: 8px;">PII instances found</div>
-                </div>
-                <div class="scorecard">
-                    <div class="scorecard-label">No. of Dimensions Flagged</div>
-                    <div class="scorecard-value">{{ unique_dimensions_count }}</div>
-                    <div style="font-size: 12px; color: #999; margin-top: 8px;">Affected dimensions</div>
-                </div>
-            </div>
-
-            <p style="font-size: 14px; font-weight: 500; color: #676767; margin: 16px 0 20px 0;">
+            <p style="font-size: 14px; font-weight: 500; color: #7500FF; margin-top: -10px; margin-bottom: 20px;">
+                Total Leaks Detected: <strong>{{ total_leaks }}</strong><br>
                 <em>Detailed values have been securely attached to this email as an Excel spreadsheet.</em>
             </p>
-
-            <!-- Dimensions Summary Table -->
-            <div style="margin-bottom: 24px;">
-                <h4 style="font-size: 14px; font-weight: 600; color: #000000; margin: 0 0 12px 0;">Dimensions with Flagged Data</h4>
-                <table class="dimensions-summary-table">
-                    <thead>
-                        <tr>
-                            <th>Dimension</th>
-                            <th>Leak Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for dim in dimension_summary %}
-                        <tr>
-                            <td>
-                                {% if ':' in dim.dimension %}
-                                    {{ dim.dimension.split(':')[1] }}
-                                {% else %}
-                                    {{ dim.dimension }}
-                                {% endif %}
-                            </td>
-                            <td style="text-align: center; color: #EF4444; font-weight: 600;">{{ dim.count }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Original Detailed Leaks Table -->
-            <div style="margin-top: 32px;">
-                <h4 style="font-size: 14px; font-weight: 600; color: #000000; margin: 0 0 12px 0;">Detailed Leak Information</h4>
-            </div>
             <table class="leaks-table">
                 <thead>
                     <tr>
@@ -378,13 +248,7 @@
                 <tbody>
                     {% for summary in leak_summary %}
                     <tr>
-                        <td>
-                            {% if ':' in summary.dimension %}
-                                {{ summary.dimension.split(':')[1] }}
-                            {% else %}
-                                {{ summary.dimension }}
-                            {% endif %}
-                        </td>
+                        <td>{{ summary.dimension }}</td>
                         <td>{{ summary.type }}</td>
                         <td class="flagged-value">{{ summary.count }}</td>
                     </tr>
