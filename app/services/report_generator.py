@@ -26,7 +26,8 @@ class ReportGenerator:
             leak_summary = [{"dimension": k[0], "type": k[1], "count": v} for k, v in leak_summary_dict.items()]
             
             total_leaks = len(leaks) if leaks else 0
-            unique_dimensions = len(leak_summary_dict) if leak_summary_dict else 0
+            # Count unique dimension names (not dimension-type pairs)
+            unique_dimensions = len(set(k[0] for k in leak_summary_dict.keys())) if leak_summary_dict else 0
             pii_percentage = 0
             if total_overall_count and total_overall_count > 0:
                 pii_percentage = round((total_leaks / total_overall_count) * 100, 2)

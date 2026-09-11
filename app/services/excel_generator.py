@@ -7,6 +7,12 @@ class ExcelGenerator:
     def __init__(self, temp_dir=None):
         self.temp_dir = temp_dir or tempfile.gettempdir()
         os.makedirs(self.temp_dir, exist_ok=True)
+    
+    def remove_event_prefix(self, value):
+        """Remove event prefixes like 'customEvent:' from dimension names"""
+        if isinstance(value, str) and ':' in value:
+            return value.split(':', 1)[1]
+        return value
 
     def generate_excel_report(self, client_name, property_id, start_date, end_date, leaks):
         """
@@ -33,7 +39,7 @@ class ExcelGenerator:
         # Write data
         for leak in leaks:
             ws.append([
-                leak.get("dimension", "Unknown"),
+                self.remove_event_prefix(leak.get("dimension", "Unknown")),
                 leak.get("flagged_value", "Unknown"),
                 leak.get("type", "Unknown")
             ])

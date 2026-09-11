@@ -199,10 +199,11 @@
         }
 
         .scorecards-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            justify-content: space-between;
             gap: 16px;
             margin-bottom: 24px;
+            flex-wrap: nowrap;
         }
 
         .scorecard {
@@ -212,6 +213,8 @@
             padding: 20px;
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            flex: 1;
+            min-width: 0;
         }
 
         .scorecard-value {
