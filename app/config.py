@@ -48,7 +48,7 @@ def validate_config():
     missing = []
     if not GOOGLE_SHEET_ID: missing.append("GOOGLE_SHEET_ID")
     if not SENDER_EMAIL: missing.append("SENDER_EMAIL")
-    if not OAUTH_CREDENTIALS_JSON: missing.append("OAUTH_CREDENTIALS_JSON (or local oauth_credentials.json file)")
+    # OAUTH_CREDENTIALS_JSON is now optional because auth.py can fall back to direct ACCESS_TOKENS
     
     if missing:
         raise ValueError(f"Missing required environment variables: {', '.join(missing)}")

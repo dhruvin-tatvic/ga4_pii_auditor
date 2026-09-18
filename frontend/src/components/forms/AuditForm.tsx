@@ -67,7 +67,7 @@ export function AuditForm() {
       setFormData(prev => ({
         ...prev,
         property_id: matched.id,
-        client_name: prev.client_name || matched.account_name
+        client_name: matched.account_name
       }));
     }
   };

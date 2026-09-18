@@ -12,6 +12,7 @@ venv/
 .env
 client_secret.json
 oauth_credentials.json
+package-lock.json
 
 # Node.js ignores
 frontend/node_modules/

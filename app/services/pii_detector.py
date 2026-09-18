@@ -1,47 +1,44 @@
 import re
+from urllib.parse import unquote
 
 
 class PIIDetector:
     def __init__(self):
-        # Email:
-        # Detects standard emails as well as emails embedded inside URLs/query parameters.
-        # Supports both @ and %40.
+
+        # ---------------------------------------------------------
+        # EMAIL
+        # ---------------------------------------------------------
         self.email_regex = re.compile(
-            r'\b[A-Za-z0-9][A-Za-z0-9._%+-]*?(?:@|%40)'
-            r'[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+\b',
+            r'\b[A-Za-z0-9](?:[A-Za-z0-9._%+-]{0,63})[A-Za-z0-9]'
+            r'(?:@|%40)'
+            r'[A-Za-z0-9]'
+            r'(?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?'
+            r'(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?){0,8}'
+            r'\.(?!png\b|jpg\b|jpeg\b|svg\b|webp\b|gif\b)'
+            r'[A-Za-z]{2,24}\b',
             flags=re.IGNORECASE
         )
 
-        # Phone:
-        # Detects exactly 10-digit Indian mobile numbers when preceded by:
-        # mobile, mobilenumber, mobile_number, phone, phone_number
-        #
-        # Examples:
-        # mobile=9876543210
-        # mobile_number:9876543210
-        # phone_number="9876543210"
-        # Also works inside URLs.
+        # ---------------------------------------------------------
+        # PHONE
+        # ---------------------------------------------------------
         self.phone_regex = re.compile(
-            r'\b(?:mobile|mobilenumber|mobile_number|phone|phone_number)'
-            r'\b\s*[:=]?\s*[\'"]?\d{10}[\'"]?',
+            r'\b(?:mobile|mobileno|mobilenumber|mobile_number|'
+            r'phone|phone_number|mobile_no|phone_no)'
+            r'\b\s*[:=]\s*[\'"]?\d{10}[\'"]?',
             flags=re.IGNORECASE
         )
 
-        # Name:
-        # Detects a name when it follows an explicit name identifier.
-        #
-        # Examples:
-        # name=JohnSmith
-        # full_name=John_Smith
-        # firstname=Rahul
-        # last_name=Sharma
-        # name=John-Smith
-        # Works inside URLs as well.
+        # ---------------------------------------------------------
+        # NAME
+        # ---------------------------------------------------------
         self.name_regex = re.compile(
-            r'\b(?:name|full_name|fullname|first_name|firstname|last_name|lastname|'
-            r'customer_name|customername|user_name|username|contact_name|contactname)'
-            r'\b\s*[:=]?\s*[-_/\'"]*'
-            r'[A-Za-z]+(?:[-_.\' ]+[A-Za-z]+){1,3}\b',
+            r'\b(?:name|child_name|childname|full_name|fullname|'
+            r'first_name|firstname|last_name|lastname|'
+            r'customer_name|customername|user_name|username|'
+            r'contact_name|contactname)'
+            r'\b\s*[:=]\s*[-_/\'"]*'
+            r'[A-Za-z]+(?:[-_.\' +]+[A-Za-z]+){0,3}',
             flags=re.IGNORECASE
         )
 
@@ -50,37 +47,67 @@ class PIIDetector:
             if not value or not isinstance(value, str):
                 return []
 
-            # Ignore any value containing "redact" (case-insensitive).
-            # Example:
-            # redact@gmail.com
-            # ?email=redact@gmail.com
-            # ?name=redact_JohnSmith
-            # ?phone_number=redact9876543210
+            # Ignore redacted values
             if "redact" in value.lower():
                 return []
 
             found_pii = []
 
-            # Email detection
-            for m in self.email_regex.finditer(value):
-                found_pii.append({
-                    "type": "Email Address",
-                    "matched_string": m.group(0)
-                })
+            # -----------------------------------------------------
+            # Scan original value
+            # -----------------------------------------------------
+            values_to_scan = [value]
 
-            # Phone detection
-            for m in self.phone_regex.finditer(value):
-                found_pii.append({
-                    "type": "Phone Number",
-                    "matched_string": m.group(0)
-                })
+            # -----------------------------------------------------
+            # Also scan URL-decoded value
+            # This handles encoded JSON/query parameters.
+            # -----------------------------------------------------
+            decoded_value = unquote(value)
 
-            # Name detection
-            for m in self.name_regex.finditer(value):
-                found_pii.append({
-                    "type": "Name",
-                    "matched_string": m.group(0)
-                })
+            if decoded_value != value:
+                values_to_scan.append(decoded_value)
+
+            # -----------------------------------------------------
+            # EMAIL
+            # -----------------------------------------------------
+            for scan_text in values_to_scan:
+                for m in self.email_regex.finditer(scan_text):
+
+                    item = {
+                        "type": "Email Address",
+                        "matched_string": m.group(0)
+                    }
+
+                    if item not in found_pii:
+                        found_pii.append(item)
+
+            # -----------------------------------------------------
+            # PHONE
+            # -----------------------------------------------------
+            for scan_text in values_to_scan:
+                for m in self.phone_regex.finditer(scan_text):
+
+                    item = {
+                        "type": "Phone Number",
+                        "matched_string": m.group(0)
+                    }
+
+                    if item not in found_pii:
+                        found_pii.append(item)
+
+            # -----------------------------------------------------
+            # NAME
+            # -----------------------------------------------------
+            for scan_text in values_to_scan:
+                for m in self.name_regex.finditer(scan_text):
+
+                    item = {
+                        "type": "Name",
+                        "matched_string": m.group(0)
+                    }
+
+                    if item not in found_pii:
+                        found_pii.append(item)
 
             return found_pii
 
@@ -92,16 +119,34 @@ class PIIDetector:
             leaks = []
 
             for dimension in dimensions:
+
                 value = row_data.get(dimension, "")
 
                 detected = self.scan_value(value)
 
+                if not detected:
+                    continue
+
+                # -------------------------------------------------
+                # Combine all PII types for this value
+                # -------------------------------------------------
+                pii_types = []
+                matched_values = []
+
                 for item in detected:
-                    leaks.append({
-                        "dimension": dimension,
-                        "flagged_value": value,
-                        "type": item["type"]
-                    })
+
+                    if item["type"] not in pii_types:
+                        pii_types.append(item["type"])
+
+                    if item["matched_string"] not in matched_values:
+                        matched_values.append(item["matched_string"])
+
+                leaks.append({
+                    "dimension": dimension,
+                    "flagged_value": value,
+                    "type": ", ".join(pii_types),
+                    "matched_values": ", ".join(matched_values)
+                })
 
             return leaks
 
