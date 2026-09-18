@@ -88,11 +88,11 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
                 attachment_path = None
                 if leaks:
                     print(f"  -> URGENT: Found {len(leaks)} PII leaks!")
-                    subject = f"[URGENT] GA4 PII Leak Detected - {client_name}"
+                    subject = f"[Action Needed] PII Data Detected in GA4 - {client_name}"
                     attachment_path = excel_generator.generate_excel_report(client_name, property_id, display_start, display_end, leaks)
                 else:
                     print("  -> ALL CLEAR: No PII detected.")
-                    subject = f"[ALL CLEAR] GA4 PII Audit - {client_name}"
+                    subject = f"[Safe] No PII Data Detected in GA4 - {client_name}"
                 
                 html_report = report_generator.generate_report(
                     client_name=client_name,
@@ -212,11 +212,11 @@ def run_single_audit(payload):
         attachment_path = None
         if leaks:
             print(f"  -> URGENT: Found {len(leaks)} PII leaks!")
-            subject = f"[URGENT] GA4 PII Leak Detected - {client_name}"
+            subject = f"[Action Needed] PII Data Detected in GA4 - {client_name}"
             attachment_path = excel_generator.generate_excel_report(client_name, property_id, display_start, display_end, leaks)
         else:
             print("  -> ALL CLEAR: No PII detected.")
-            subject = f"[ALL CLEAR] GA4 PII Audit - {client_name}"
+            subject = f"[Safe] No PII Data Detected in GA4 - {client_name}"
             
         html_report = report_generator.generate_report(
             client_name=client_name,

@@ -1,157 +1,393 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body { 
-            font-family: 'Figtree', sans-serif; 
-            color: #676767; /* Body Text */
-            line-height: 1.6; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f4f7f6; 
-        }
-        .container {
-            max-width: 760px;
-            width: 100%;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border: 1px solid #E6E2F1;
-        }
-        .header {
-    background-color: #000000;
-    color: white;
-    padding: 32px 40px;
-    border-top: 6px solid #22C55E;
-}
-        .header h2 { 
-            margin: 0; 
-            font-size: 24px; 
-            font-weight: 700;
-            display: flex; 
-            align-items: center; 
-            color: #ffffff;
-        }
-        .header p { 
-            margin: 8px 0 0 0; 
-            font-size: 14px; 
-            font-weight: 500;
-            opacity: 0.9; 
-        }
-        .content {
-    padding: 40px;
-}
-        .intro-text {
-            color: #000000; /* Headlines color for strong intro */
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .intro-text strong {
-            color: #7500FF; /* Primary Color */
-        }
-        .info-table {
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-            margin-top: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #E6E2F1;
+        * {
+            box-sizing: border-box;
         }
 
-        .info-table th,
-        .info-table td {
-            padding: 16px 12px;
-            text-align: left;
-            border-bottom: 1px solid #E6E2F1;
-            border-right: 1px solid #E6E2F1;
-        }
-
-        .info-table th {
-            width: 30%;
-            color: #000000;
-            font-weight: 600;
-            background: #FAFAFA;
-        }
-
-        .info-table td {
-            width: 70%;
+        body {
+            margin: 0;
+            padding: 28px 0;
+            background: #f4f5f6;
+            font-family: 'Figtree', Arial, sans-serif;
             color: #676767;
-            font-weight: 500;
-            word-break: break-word;
-            overflow-wrap: anywhere;
+            line-height: 1.55;
+            -webkit-text-size-adjust: 100%;
         }
 
-        .info-table th:last-child,
-        .info-table td:last-child {
-            border-right: none;
+        .page {
+            width: 760px;
+            max-width: calc(100% - 40px);
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e6e2f1;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        .info-table tr:last-child th,
-        .info-table tr:last-child td {
-            border-bottom: none;
+        /* PDF-style black header */
+        .header {
+            background: #000000;
+            padding: 24px 40px;
         }
-        .section-title { 
-            color: #000000;
-            font-size: 18px; 
-            font-weight: 700; 
-            margin-top: 32px; 
-            margin-bottom: 16px; 
-            border-bottom: 2px solid #E6E2F1; 
-            padding-bottom: 8px; 
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        .recommendation { 
-            color: #676767; 
+
+        .header-logo {
+            width: 150px;
+            height: auto;
+            display: block;
+        }
+
+        .header-title {
+            text-align: right;
+            color: #ffffff;
+            font-size: 22px;
+            line-height: 1.25;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .content {
+            padding: 34px 40px 38px;
+        }
+
+        .greeting {
+            margin: 0 0 20px;
+            color: #111111;
+            font-size: 17px;
+            font-weight: 700;
+        }
+
+        .intro-text {
+            margin: 0 0 24px;
+            color: #676767;
+            font-size: 16px;
             font-weight: 400;
-            padding-left: 20px;
+            line-height: 1.75;
         }
-        .footer {
+
+        .intro-text strong {
+            color: #7500FF;
+            font-weight: 700;
+        }
+
+        /* Three PDF-style information cards */
+        .cards {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px 0;
+            margin: 0 -12px 28px;
+        }
+
+        .card {
+            width: 33.333%;
+            background: #eee8fa;
+            border-radius: 10px;
+            padding: 18px 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .card-label {
+            margin: 0 0 5px;
+            color: #666666;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .card-value {
+            margin: 0;
+            color: #111111;
+            font-size: 16px;
+            line-height: 1.35;
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .card-subvalue {
+            margin: 3px 0 0;
+            color: #777777;
+            font-size: 13px;
+            font-weight: 400;
+            word-break: break-word;
+        }
+
+        /* Status panel */
+        .status-box {
+            width: 100%;
+            border: 1px solid #e2dcef;
+            border-radius: 10px;
+            background: #ffffff;
             text-align: center;
             padding: 20px;
-            font-size: 12px;
+            margin: 0 0 10px;
+        }
+
+        .status-value {
+            margin: 0;
+            color: #7500FF;
+            font-size: 28px;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .status-label {
+            margin: 7px 0 0;
+            color: #666666;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            margin: 30px 0 14px;
+            color: #111111;
+            font-size: 17px;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .recommendation {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .recommendation li {
+            position: relative;
+            margin: 0;
+            padding-left: 34px;
             color: #676767;
-            border-top: 1px solid #E6E2F1;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .recommendation li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            top: 1px;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #7500FF;
+            color: #ffffff;
+            text-align: center;
+            line-height: 22px;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* PDF-style footer */
+        .footer {
+            background: #fafafa;
+            border-top: 1px solid #e6e2f1;
+            padding: 22px 40px 26px;
+        }
+
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .footer-logo-cell {
+            width: 115px;
+            vertical-align: middle;
+        }
+
+        .footer-logo {
+            width: 76px;
+            height: auto;
+            display: block;
+        }
+
+        .footer-copy {
+            vertical-align: middle;
+        }
+
+        .footer-team {
+            margin: 0 0 2px;
+            color: #111111;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-link {
+            margin: 0;
+            color: #7500FF;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .automated-note {
+            margin: 20px 0 0;
+            text-align: center;
+            color: #9aa1aa;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* Email/mobile handling */
+        @media only screen and (max-width: 620px) {
+            body {
+                padding: 12px 0;
+            }
+
+            .page {
+                max-width: calc(100% - 24px);
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header-title {
+                font-size: 17px;
+            }
+
+            .header-logo {
+                width: 110px;
+            }
+
+            .content {
+                padding: 25px 20px 30px;
+            }
+
+            .cards {
+                display: block;
+                width: 100%;
+                margin: 0 0 22px;
+            }
+
+            .card {
+                display: block;
+                width: 100%;
+                margin: 0 0 10px;
+            }
+
+            .footer {
+                padding: 20px;
+            }
+
+            .footer-logo-cell {
+                width: 90px;
+            }
+
+            .footer-logo {
+                width: 62px;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="container">
+    <div class="page">
+
+        <!-- Header -->
         <div class="header">
-            <img src="https://www.tatvic.com/wp-content/uploads/2026/08/whitepurple_150px-1.png" alt="Tatvic Logo" style="height: 32px; margin-bottom: 16px;">
-            <h2>GA4 Is PII Safe</h2>
-            <p>Automated Compliance Monitoring System</p>
+            <table class="header-table" role="presentation">
+                <tr>
+                    <td>
+                        <img
+                            src="https://www.tatvic.com/wp-content/uploads/2026/08/whitepurple_150px-1.png"
+                            alt="Tatvic Logo"
+                            class="header-logo"
+                        >
+                    </td>
+                    <td class="header-title">
+                        GA4 PII Audit Report
+                    </td>
+                </tr>
+            </table>
         </div>
+
+        <!-- Main content -->
         <div class="content">
-            <p class="intro-text">The automated weekly GA4 PII Audit has successfully completed for <strong>{{ client_name }}</strong>. No PII (Emails, Phone numbers, or Names) was detected in the audited dimensions.</p>
-            
-            <table class="info-table">
+
+            <p class="greeting">Hello Team,</p>
+
+            <p class="intro-text">
+                The GA4 PII Auditor did not find any issues for
+                <strong>{{ client_name }}</strong> property.
+                No PII was detected in the dimensions.
+            </p>
+
+            <!-- Property details -->
+            <table class="cards" role="presentation">
                 <tr>
-                    <th>Client Name:</th>
-                    <td>{{ client_name }}</td>
-                </tr>
-                <tr>
-                    <th>GA4 Property ID:</th>
-                    <td>{{ property_id }}</td>
-                </tr>
-                <tr>
-                    <th>Audit Period:</th>
-                    <td>{{ start_date }} to {{ end_date }}</td>
+                    <td class="card">
+                        <p class="card-label">Client</p>
+                        <p class="card-value">{{ client_name }}</p>
+                    </td>
+
+                    <td class="card">
+                        <p class="card-label">GA4 Property</p>
+                        <p class="card-value">{{ property_id }}</p>
+                    </td>
+
+                    <td class="card">
+                        <p class="card-label">Audit Period</p>
+                        <p class="card-value">{{ start_date }}</p>
+                        <p class="card-subvalue">to {{ end_date }}</p>
+                    </td>
                 </tr>
             </table>
 
+            <!-- Audit status -->
+            <div class="status-box">
+                <p class="status-value">No Issues Found</p>
+                <p class="status-label">PII Audit Status</p>
+            </div>
+
+            <!-- Recommended action -->
             <div class="section-title">Recommended Action Steps</div>
+
             <ul class="recommendation">
-                <li>No actions are required at this time. Your property is compliant with Google's PII policies.</li>
+                <li>
+                    No actions are required at this time. Your property is compliant
+                    with Google's PII policies.
+                </li>
             </ul>
+
         </div>
+
+        <!-- Footer -->
         <div class="footer">
-            <img src="https://www.tatvic.com/wp-content/uploads/2021/05/tatvic-logo.svg" alt="Tatvic Logo" style="height: 24px; margin-bottom: 8px;"><br>
-            Powered by Tatvic GA4 Auditor
+            <table class="footer-table" role="presentation">
+                <tr>
+                    <td class="footer-logo-cell">
+                        <img
+                            src="https://www.tatvic.com/wp-content/uploads/2021/05/tatvic-logo.svg"
+                            alt="Tatvic Logo"
+                            class="footer-logo"
+                        >
+                    </td>
+                    <td class="footer-copy">
+                        <p class="footer-team">Tatvic Support Team</p>
+                        <p class="footer-link">www.tatvic.com</p>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="automated-note">
+                This is an automated notification from your GA4 PII Auditor system.
+            </p>
         </div>
+
     </div>
 </body>
 </html>
