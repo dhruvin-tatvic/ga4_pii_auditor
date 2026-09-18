@@ -16,7 +16,7 @@
             margin: 0;
             padding: 28px 0;
             background: #f4f5f6;
-            font-family: 'Figtree', Arial, sans-serif;
+            font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
             color: #676767;
             line-height: 1.55;
             -webkit-text-size-adjust: 100%;
@@ -245,39 +245,46 @@
             font-weight: 700;
         }
 
-        .recommendation {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .recommendation-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .recommendation li {
-            position: relative;
-            margin: 0;
-            padding-left: 34px;
-            color: #676767;
+        .recommendation-table td {
             font-size: 15px;
             line-height: 1.7;
+            color: #676767;
+            vertical-align: top;
+            padding: 0;
         }
 
-        .recommendation li + li {
-            margin-top: 12px;
+        .recommendation-check-cell {
+            width: 22px;
+            padding-top: 1px;
         }
 
-        .recommendation li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            top: 1px;
+        .recommendation-check {
+            display: inline-block;
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: #7500FF;
+            background-color: #7500FF;
             color: #ffffff;
             text-align: center;
             line-height: 22px;
             font-size: 13px;
             font-weight: 700;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .recommendation-text-cell {
+            padding-left: 12px;
+        }
+
+        .recommendation-spacer {
+            height: 12px;
+            line-height: 12px;
+            font-size: 0;
         }
 
         .recommendation strong {
@@ -291,8 +298,11 @@
 
         .cta-button {
             display: inline-block;
-            background: #7500FF;
-            color: #ffffff;
+            /* background: #7500FF; */
+            color: #7500FF;
+            border-color:#7500FF;
+            border-width: 1px;
+            border-style: solid;
             padding: 12px 24px;
             text-decoration: none;
             border-radius: 6px;
@@ -409,7 +419,7 @@
     </style>
 </head>
 
-<body>
+<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif;">
     <div class="page">
         <div class="header">
             <table class="header-table" role="presentation">
@@ -450,11 +460,12 @@
 
                     <td class="card">
                         <p class="card-label">Audit Period</p>
-                        <p class="card-value">{{ start_date }}</p>
-                        <p class="card-subvalue">to {{ end_date }}</p>
+                        <p class="card-value">{{ start_date }} to {{ end_date }}</p>
                     </td>
                 </tr>
             </table>
+            <br>
+            <br>
 
             <div class="status-box">
                 <p class="status-value">PII Detected</p>
@@ -493,6 +504,7 @@
                     </td>
                 </tr>
             </table>
+            <br>
 
             <p class="attachment-note">
                 Detailed values have been securely attached to this email as an Excel spreadsheet.
@@ -519,26 +531,45 @@
 
             <div class="section-title">Next Action Steps</div>
 
-            <ul class="recommendation">
-                <li>
-                    <strong>Review:</strong>
-                    Check the affected URLs, forms, and event parameters to identify the source of the PII and determine how it is being passed to Google Analytics.
-                </li>
-
-                <li>
-                    <strong>Fix:</strong>
-                    Identify and remove PII at the source before it is sent to Google Analytics. For web streams, GA4 Data Redaction can also be configured to redact email addresses and specified URL query parameters.
-                    <a href="https://support.google.com/analytics/answer/6366371?hl=en">Best practices to avoid sending PII in GA4</a>
-                    |
-                    <a href="https://support.google.com/analytics/answer/13544947?hl=en">GA4 Data Redaction</a>
-                </li>
-
-                <li>
-                    <strong>Data Deletion Request:</strong>
-                    If PII has already been collected, submit a GA4 Data Deletion Request to remove the affected parameter values for the relevant date range.
-                    <a href="https://support.google.com/analytics/answer/9940393?hl=en">GA4 Data Deletion Requests</a>
-                </li>
-            </ul>
+            <table class="recommendation recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Review:</strong>
+                        Check the affected dimensions to identify the source of the PII and determine how it &nbsp;&nbsp;is being passed to Google Analytics.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Fix:</strong>
+                        Identify and remove PII at the source before it is sent to Google Analytics. For web &nbsp;&nbsp;streams, GA4 Data Redaction can also be configured to redact email addresses and specified &nbsp;&nbsp;URL query parameters.
+                        <a href="https://support.google.com/analytics/answer/6366371?hl=en">Best practices to avoid sending PII in GA4</a>
+                        |
+                        <a href="https://support.google.com/analytics/answer/13544947?hl=en">GA4 Data Redaction</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Data Deletion Request:</strong>
+                        If PII has already been collected, submit a GA4 Data Deletion Request &nbsp;&nbsp;to remove the affected parameter values for the relevant date range.
+                        <a href="https://support.google.com/analytics/answer/9940393?hl=en">GA Data Delete Requests</a>
+                    </td>
+                </tr>
+            </table>
 
             <div style="text-align:center;">
                 <a href="https://analytics.google.com/analytics/web/#/p{{ property_id }}/reports/intelligenthome" class="cta-button" target="_blank">

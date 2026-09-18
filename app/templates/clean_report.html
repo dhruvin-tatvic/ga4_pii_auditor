@@ -16,7 +16,7 @@
             margin: 0;
             padding: 28px 0;
             background: #f4f5f6;
-            font-family: 'Figtree', Arial, sans-serif;
+            font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
             color: #676767;
             line-height: 1.55;
             -webkit-text-size-adjust: 100%;
@@ -161,35 +161,40 @@
             font-weight: 700;
         }
 
-        .recommendation {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .recommendation-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        .recommendation li {
-            position: relative;
-            margin: 0;
-            padding-left: 34px;
-            color: #676767;
+        .recommendation-table td {
             font-size: 15px;
             line-height: 1.7;
+            color: #676767;
+            vertical-align: top;
+            padding: 0;
         }
 
-        .recommendation li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            top: 1px;
+        .recommendation-check-cell {
+            width: 22px;
+            padding-top: 1px;
+        }
+
+        .recommendation-check {
+            display: inline-block;
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: #7500FF;
+            background-color: #7500FF;
             color: #ffffff;
             text-align: center;
             line-height: 22px;
             font-size: 13px;
             font-weight: 700;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .recommendation-text-cell {
+            padding-left: 12px;
         }
 
         /* PDF-style footer */
@@ -294,7 +299,7 @@
     </style>
 </head>
 
-<body>
+<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif;">
     <div class="page">
 
         <!-- Header -->
@@ -341,11 +346,12 @@
 
                     <td class="card">
                         <p class="card-label">Audit Period</p>
-                        <p class="card-value">{{ start_date }}</p>
-                        <p class="card-subvalue">to {{ end_date }}</p>
+                        <p class="card-value">{{ start_date }} to {{ end_date }}</p>
                     </td>
                 </tr>
             </table>
+            <br>
+            <br>
 
             <!-- Audit status -->
             <div class="status-box">
@@ -356,12 +362,17 @@
             <!-- Recommended action -->
             <div class="section-title">Recommended Action Steps</div>
 
-            <ul class="recommendation">
-                <li>
-                    No actions are required at this time. Your property is compliant
-                    with Google's PII policies.
-                </li>
-            </ul>
+            <table class="recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        &nbsp;&nbsp;No actions are required at this time. Your property is compliant
+                        with Google's PII policies.
+                    </td>
+                </tr>
+            </table>
 
         </div>
 
