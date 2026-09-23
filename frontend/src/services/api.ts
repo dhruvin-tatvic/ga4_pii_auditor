@@ -20,3 +20,23 @@ export async function triggerSingleAudit(payload: AuditPayload): Promise<AuditRe
     };
   }
 }
+
+export async function fetchClientList(): Promise<Array<{
+  client_name: string;
+  property_id: string;
+  property_access: string;
+  send_to: string;
+  send_to_cc?: string;
+}>> {
+  try {
+    const response = await fetch('/api/client-list');
+    const data = await response.json();
+    if (data.status !== 'success') {
+      return [];
+    }
+    return data.clients || [];
+  } catch (error) {
+    console.error('Error fetching client list:', error);
+    return [];
+  }
+}

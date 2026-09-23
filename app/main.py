@@ -58,5 +58,14 @@ def get_properties():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route("/api/client-list", methods=["GET"])
+def get_client_list():
+    try:
+        from app.services.sheets_client import SheetsClient
+        clients = SheetsClient().get_client_list()
+        return jsonify({"status": "success", "clients": clients})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 GOOGLE_SHEET_ID = os.getenv("GOOGLE_SHEET_ID")
-SHEET_RANGE = os.getenv("SHEET_RANGE", "A2:H")
+SHEET_RANGE = os.getenv("SHEET_RANGE", "Client List!A2:H")
 
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 SENDER_NAME = os.getenv("SENDER_NAME", "GA4 Compliance Monitor")
