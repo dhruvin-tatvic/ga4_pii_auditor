@@ -26,7 +26,7 @@ class GA4ClientManager:
             self.clients[access_email] = GA4Client(access_email if access_email != "default" else None)
         return self.clients[access_email]
 
-def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, email_sender, excel_generator):
+def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, email_sender, excel_generator, force_last_week=False):
     CHUNK_SIZE = 5
     CHUNK_DELAY = 10  # Seconds to wait between chunks
     ITEM_DELAY = 2    # Seconds to wait between individual audits
@@ -58,7 +58,22 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
             except ValueError:
                 interval_days = 7
         
-            if parsed_start_date and parsed_end_date:
+            if force_last_week:
+                # Force date range to last Sunday through last Saturday
+                today = datetime.date.today()
+                # today.weekday(): Monday is 0, Sunday is 6
+                days_since_monday = today.weekday()
+                offset_to_saturday = days_since_monday + 2
+                offset_to_sunday = days_since_monday + 8
+                
+                parsed_end_date = today - datetime.timedelta(days=offset_to_saturday)
+                parsed_start_date = today - datetime.timedelta(days=offset_to_sunday)
+                
+                start_date_query = parsed_start_date.strftime("%Y-%m-%d")
+                end_date_query = parsed_end_date.strftime("%Y-%m-%d")
+                display_start = parsed_start_date.strftime("%d-%m-%Y")
+                display_end = parsed_end_date.strftime("%d-%m-%Y")
+            elif parsed_start_date and parsed_end_date:
                 start_date_query = parsed_start_date.strftime("%Y-%m-%d")
                 end_date_query = parsed_end_date.strftime("%Y-%m-%d")
                 display_start = parsed_start_date.strftime("%d-%m-%Y")
@@ -117,7 +132,7 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
             print(f"Waiting {CHUNK_DELAY} seconds before processing the next chunk to avoid rate limits...")
             time.sleep(CHUNK_DELAY)
 
-def run_audit():
+def run_audit(force_last_week=False):
     print("Starting GA4 PII Audit...")
     try:
         validate_config()
@@ -144,7 +159,7 @@ def run_audit():
         
     print(f"Found {len(targets)} properties to audit.")
     
-    _process_targets_in_chunks(targets, ga4_client_manager, report_generator, email_sender, excel_generator)
+    _process_targets_in_chunks(targets, ga4_client_manager, report_generator, email_sender, excel_generator, force_last_week)
 
     print("\nAudit completed successfully.")
     return "Audit completed successfully.", 200

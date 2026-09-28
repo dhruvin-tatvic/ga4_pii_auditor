@@ -19,6 +19,17 @@ def trigger_audit():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
+@app.route("/api/audit/scheduled", methods=["POST"])
+def trigger_scheduled_audit():
+    try:
+        # Runs the audit forcing the date range to last Sunday-Saturday
+        message, status_code = run_audit(force_last_week=True)
+        if status_code != 200:
+            return jsonify({"status": "error", "message": message}), status_code
+        return jsonify({"status": "success", "message": message})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 @app.route("/api/audit/single", methods=["POST"])
 def trigger_single_audit():
     try:
