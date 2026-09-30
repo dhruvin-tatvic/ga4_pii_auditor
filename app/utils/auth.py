@@ -11,6 +11,17 @@ CLIENT_SECRET = os.getenv("secret")
 TOKEN_URI = "https://oauth2.googleapis.com/token"
 
 def get_oauth_creds(access_email=None):
+    client_id = CLIENT_ID
+    client_secret = CLIENT_SECRET
+    
+    if OAUTH_CREDENTIALS_JSON:
+        try:
+            creds_data = json.loads(OAUTH_CREDENTIALS_JSON)
+            client_id = client_id or creds_data.get("client_id")
+            client_secret = client_secret or creds_data.get("client_secret")
+        except Exception:
+            pass
+
     if access_email and ACCESS_TOKENS.get(access_email):
         refresh_token = ACCESS_TOKENS.get(access_email)
         scopes = ["https://www.googleapis.com/auth/analytics.readonly"]
@@ -38,8 +49,8 @@ def get_oauth_creds(access_email=None):
         token=None,
         refresh_token=refresh_token,
         token_uri=TOKEN_URI,
-        client_id=CLIENT_ID,
-        client_secret=CLIENT_SECRET,
+        client_id=client_id,
+        client_secret=client_secret,
         scopes=scopes,
     )
     if not creds.valid:

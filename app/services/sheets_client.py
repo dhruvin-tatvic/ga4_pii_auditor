@@ -22,11 +22,11 @@ class SheetsClient:
             if len(row) < 4:
                 continue
 
-            client_name = row[0].strip() if row[0].strip() else ""
-            property_id = row[2].strip() if len(row) > 2 and row[2].strip() else ""
-            property_access = row[3].strip() if len(row) > 3 and row[3].strip() else ""
-            send_to = row[6].strip() if len(row) > 6 and row[6].strip() else ""
-            send_to_cc = row[7].strip() if len(row) > 7 and row[7].strip() else ""
+            client_name = str(row[0]).strip() if str(row[0]).strip() else ""
+            property_id = str(row[2]).strip() if len(row) > 2 and str(row[2]).strip() else ""
+            property_access = str(row[3]).strip() if len(row) > 3 and str(row[3]).strip() else ""
+            send_to = str(row[6]).strip() if len(row) > 6 and str(row[6]).strip() else ""
+            send_to_cc = str(row[7]).strip() if len(row) > 7 and str(row[7]).strip() else ""
 
             if client_name and property_id and send_to:
                 clients.append({
@@ -43,14 +43,14 @@ class SheetsClient:
         targets = []
         for row in self._read_sheet_values():
             if len(row) >= 1:
-                client_name = row[0].strip() if len(row) > 0 else ""
-                property_name = row[1].strip() if len(row) > 1 else ""
-                property_id = row[2].strip() if len(row) > 2 else ""
-                property_access = row[3].strip() if len(row) > 3 else None
-                start_date = row[4].strip() if len(row) > 4 else ""
-                end_date = row[5].strip() if len(row) > 5 else ""
-                send_to = row[6].strip() if len(row) > 6 else ""
-                send_to_cc = row[7].strip() if len(row) > 7 else ""
+                client_name = str(row[0]).strip() if len(row) > 0 else ""
+                property_name = str(row[1]).strip() if len(row) > 1 else ""
+                property_id = str(row[2]).strip() if len(row) > 2 else ""
+                property_access = str(row[3]).strip() if len(row) > 3 else None
+                start_date = str(row[4]).strip() if len(row) > 4 else ""
+                end_date = str(row[5]).strip() if len(row) > 5 else ""
+                send_to = str(row[6]).strip() if len(row) > 6 else ""
+                send_to_cc = str(row[7]).strip() if len(row) > 7 else ""
 
                 if client_name and property_id and send_to:
                     targets.append({
