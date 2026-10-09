@@ -1,277 +1,599 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        body {
-            font-family: 'Figtree', sans-serif;
-            color: #676767;
-            /* Body Text */
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f7f6;
+        * {
+            box-sizing: border-box;
         }
 
-        .container {
-            max-width: 760px;
-            width: 100%;
-            margin: 20px auto;
-            background-color: #fff;
-            border-radius: 8px;
+        body {
+            margin: 0;
+            padding: 28px 0;
+            background: #f4f5f6;
+            font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;
+            color: #676767;
+            line-height: 1.55;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .page {
+            width: 760px;
+            max-width: calc(100% - 40px);
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e6e2f1;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #E6E2F1;
         }
 
         .header {
-            background-color: #000000;
-            color: white;
-            padding: 32px 40px;
-            border-top: 6px solid #EF4444;
+            background: #000000;
+            padding: 24px 40px;
         }
 
-        .header h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .header-logo {
+            width: 150px;
+            height: auto;
+            display: block;
+        }
+
+        .header-title {
+            text-align: right;
             color: #ffffff;
-        }
-
-        .header p {
-            margin: 8px 0 0 0;
-            font-size: 14px;
-            font-weight: 500;
-            opacity: 0.9;
+            font-size: 22px;
+            line-height: 1.25;
+            font-weight: 700;
+            white-space: nowrap;
         }
 
         .content {
-            padding: 40px;
+            padding: 34px 40px 38px;
+        }
+
+        .greeting {
+            margin: 0 0 20px;
+            color: #111111;
+            font-size: 17px;
+            font-weight: 700;
         }
 
         .intro-text {
-            color: #000000;
-            /* Headlines color */
+            margin: 0 0 24px;
+            color: #676767;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 400;
+            line-height: 1.75;
         }
 
         .intro-text strong {
             color: #7500FF;
-            /* Primary Color */
+            font-weight: 700;
         }
 
-        .info-table {
+        .cards {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 24px;
-            margin-bottom: 24px;
+            border-collapse: separate;
+            border-spacing: 12px 0;
+            margin: 0 -12px 28px;
         }
 
-        .info-table th,
-        .info-table td {
-            padding: 16px 12px;
-            text-align: left;
-            border-bottom: 1px solid #E6E2F1;
-            /* Separators */
+        .card {
+            width: 33.333%;
+            background: #eee8fa;
+            border-radius: 10px;
+            padding: 18px 12px;
+            text-align: center;
+            vertical-align: middle;
         }
 
-        .info-table th {
-            width: 35%;
-            color: #000000;
-            /* Headlines */
-            font-weight: 600;
+        .card-label {
+            margin: 0 0 5px;
+            color: #666666;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .info-table td {
-            color: #676767;
-            /* Body */
-            font-weight: 500;
+        .card-value {
+            margin: 0;
+            color: #111111;
+            font-size: 16px;
+            line-height: 1.35;
+            font-weight: 700;
+            word-break: break-word;
+        }
+
+        .card-subvalue {
+            margin: 3px 0 0;
+            color: #777777;
+            font-size: 13px;
+            font-weight: 400;
+            word-break: break-word;
+        }
+
+        .status-box {
+            width: 100%;
+            border: 1px solid #f4c2c8;
+            border-radius: 10px;
+            background: #fff4f5;
+            text-align: center;
+            padding: 20px;
+            margin: 0 0 10px;
+        }
+
+        .status-value {
+            margin: 0;
+            color: #d7263d;
+            font-size: 28px;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .status-label {
+            margin: 7px 0 0;
+            color: #666666;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
         }
 
         .section-title {
-            color: #EF4444;
-            /* Error for emphasis */
-            font-size: 16px;
+            margin: 30px 0 14px;
+            color: #111111;
+            font-size: 17px;
+            line-height: 1.3;
             font-weight: 700;
-            text-transform: uppercase;
-            margin-top: 32px;
-            margin-bottom: 16px;
+        }
+
+        .scorecards-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px 0;
+            margin: 0 -12px 28px;
+            table-layout: fixed;
+        }
+
+        .scorecard-cell {
+            width: 33.333%;
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .scorecard {
+            background: #f6f6f7;
+            border: 1px solid #e6e2f1;
+            border-radius: 10px;
+            padding: 18px 12px;
+            min-height: 110px;
+            text-align: center;
+        }
+
+        .scorecard-label {
+            margin: 0 0 8px;
+            color: #666666;
+            font-size: 12px;
+            font-weight: 700;
             letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .scorecard-value {
+            margin: 0;
+            color: #7500FF;
+            font-size: 30px;
+            line-height: 1.1;
+            font-weight: 700;
+        }
+
+        .attachment-note {
+            margin: 0 0 18px;
+            color: #7500FF;
+            font-size: 14px;
+            font-style: italic;
+            font-weight: 500;
         }
 
         .leaks-table {
             width: 100%;
-            table-layout: fixed;
             border-collapse: collapse;
-            margin-bottom: 24px;
+            margin: 0 0 24px;
             font-size: 14px;
-            border: 1px solid #E6E2F1;
+            border: 1px solid #e6e2f1;
         }
 
-        .leaks-table th:nth-child(1),
-        .leaks-table td:nth-child(1) {
-            width: 25%;
-        }
-
-        .leaks-table th:nth-child(2),
-        .leaks-table td:nth-child(2) {
-            width: 55%;
-        }
-
-        .leaks-table th:nth-child(3),
-        .leaks-table td:nth-child(3) {
-            width: 20%;
-            white-space: nowrap;
-        }
-
-        .leaks-table th {
-            background-color: #000000;
-            color: white;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            border-right: 1px solid #E6E2F1;
-        }
-
+        .leaks-table th,
         .leaks-table td {
+            text-align: left;
             padding: 12px;
-            border-bottom: 1px solid #E6E2F1;
-            border-right: 1px solid #E6E2F1;
+            border-bottom: 1px solid #e6e2f1;
+            border-right: 1px solid #e6e2f1;
             word-break: break-word;
             overflow-wrap: anywhere;
-            color: #676767;
         }
 
-        /* Remove border from the last column */
         .leaks-table th:last-child,
         .leaks-table td:last-child {
             border-right: none;
         }
 
-        .flagged-value {
-            color: #EF4444;
-            /* Errors */
-            font-family: monospace;
-        }
-
-        .footer-section-title {
-            color: #000000;
-            font-size: 18px;
+        .leaks-table thead th {
+            background: #000000;
+            color: #ffffff;
             font-weight: 700;
-            margin-top: 32px;
-            margin-bottom: 16px;
-            border-bottom: 2px solid #E6E2F1;
-            padding-bottom: 8px;
         }
 
-        .recommendation {
+        .leaks-table tbody td {
             color: #676767;
-            font-weight: 400;
-            padding-left: 20px;
+        }
+
+        .flagged-value {
+            color: #d7263d;
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .recommendation-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .recommendation-table td {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #676767;
+            vertical-align: top;
+            padding: 0;
+        }
+
+        .recommendation-check-cell {
+            width: 22px;
+            padding-top: 1px;
+        }
+
+        .recommendation-check {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: #7500FF;
+            color: #ffffff;
+            text-align: center;
+            line-height: 22px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .recommendation-text-cell {
+            padding-left: 12px;
+        }
+
+        .recommendation-spacer {
+            height: 12px;
+            line-height: 12px;
+            font-size: 0;
         }
 
         .recommendation strong {
-            color: #000000;
+            color: #111111;
+        }
+
+        .recommendation a {
+            color: #7500FF;
+            text-decoration: underline;
         }
 
         .cta-button {
             display: inline-block;
-            background-color: #FF6B35;
-            /* Important CTAs */
-            color: white;
+            /* background: #7500FF; */
+            color: #7500FF;
+            border-color:#7500FF;
+            border-width: 1px;
+            border-style: solid;
             padding: 12px 24px;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            margin-top: 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            margin-top: 24px;
             text-align: center;
         }
 
         .footer {
+            background: #fafafa;
+            border-top: 1px solid #e6e2f1;
+            padding: 22px 40px 26px;
+        }
+
+        .footer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .footer-logo-cell {
+            width: 115px;
+            vertical-align: middle;
+        }
+
+        .footer-logo {
+            width: 76px;
+            height: auto;
+            display: block;
+        }
+
+        .footer-copy {
+            vertical-align: middle;
+        }
+
+        .footer-team {
+            margin: 0 0 2px;
+            color: #111111;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .footer-link {
+            margin: 0;
+            color: #7500FF;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .automated-note {
+            margin: 20px 0 0;
             text-align: center;
-            padding: 20px;
+            color: #9aa1aa;
             font-size: 12px;
-            color: #676767;
-            border-top: 1px solid #E6E2F1;
+            line-height: 1.5;
+        }
+
+        @media only screen and (max-width: 620px) {
+            body {
+                padding: 12px 0;
+            }
+
+            .page {
+                max-width: calc(100% - 24px);
+            }
+
+            .header {
+                padding: 20px;
+            }
+
+            .header-title {
+                font-size: 17px;
+            }
+
+            .content {
+                padding: 25px 20px 30px;
+            }
+
+            .cards {
+                display: block;
+                width: 100%;
+                margin: 0 0 22px;
+            }
+
+            .card {
+                display: block;
+                width: 100%;
+                margin: 0 0 10px;
+            }
+
+            .scorecards-table {
+                border-spacing: 4px 0;
+            }
+
+            .scorecard {
+                padding: 16px 8px;
+            }
+
+            .scorecard-value {
+                font-size: 24px;
+            }
+
+            .footer {
+                padding: 20px;
+            }
+
+            .footer-logo-cell {
+                width: 90px;
+            }
+
+            .footer-logo {
+                width: 62px;
+            }
         }
     </style>
 </head>
 
-<body>
-    <div class="container">
+<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif;">
+    <div class="page">
         <div class="header">
-            <img src="https://www.tatvic.com/wp-content/uploads/2021/05/tatvic-logo.svg" alt="Tatvic Logo"
-                style="height: 32px; margin-bottom: 16px; filter: brightness(0) invert(1);">
-            <h2>[URGENT] GA4 PII Leak Detected</h2>
-            <p>Automated Compliance Monitoring System</p>
-        </div>
-        <div class="content">
-            <p class="intro-text">The automated weekly GA4 PII Audit has detected Personally Identifiable Information
-                (PII) flowing into the <strong>{{ client_name }}</strong> property. This violates Google's Terms of
-                Service and puts the property at risk of data deletion.</p>
-
-            <table class="info-table">
+            <table class="header-table" role="presentation">
                 <tr>
-                    <th>Client Name:</th>
-                    <td>{{ client_name }}</td>
-                </tr>
-                <tr>
-                    <th>GA4 Property ID:</th>
-                    <td>{{ property_id }}</td>
-                </tr>
-                <tr>
-                    <th>Audit Period:</th>
-                    <td>{{ start_date }} to {{ end_date }}</td>
+                    <td>
+                        <img
+                            src="https://tatvic.com/wp-content/themes/tatvic-digital-analytics/assets/img/logo/tatvic-light-logo.svg"
+                            alt="Tatvic Logo"
+                            class="header-logo"
+                        >
+                    </td>
+                    <td class="header-title">
+                        PII Data Detected in GA4
+                    </td>
                 </tr>
             </table>
+        </div>
 
-            <div class="section-title">FLAGGED DATA INSTANCES</div>
-            <table class="leaks-table">
+        <div class="content">
+            <p class="greeting">Hello Team,</p>
+
+            <p class="intro-text">
+                The GA4 PII Auditor has detected Personally Identifiable Information (PII) flowing into the
+                <strong>Demo Client</strong> property. This violates Google's Terms of Service and puts the property at risk of data deletion.
+            </p>
+
+            <table class="cards" role="presentation">
+                <tr>
+                    <td class="card">
+                        <p class="card-label">Client</p>
+                        <p class="card-value">Demo Client</p>
+                    </td>
+
+                    <td class="card">
+                        <p class="card-label">GA4 Property</p>
+                        <p class="card-value">983462832</p>
+                    </td>
+
+                    <td class="card">
+                        <p class="card-label">Audit Period</p>
+                        <p class="card-value">01-10-2026 to 31-10-2026</p>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+
+            <div class="status-box">
+                <p class="status-value">PII Detected</p>
+                <p class="status-label">Audit Status</p>
+            </div>
+
+            <div class="section-title">Flagged Data Summary</div>
+
+            <table class="scorecards-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
+                <tr>
+                    <td class="scorecard-cell">
+                        <div class="scorecard">
+                            <p class="scorecard-label">PII Detection Rate</p>
+                            <p class="scorecard-value">3.5%
+                            </p>
+                        </div>
+                    </td>
+
+                    <td class="scorecard-cell">
+                        <div class="scorecard">
+                            <p class="scorecard-label">Total Leaks Detected</p>
+                            <p class="scorecard-value">35</p>
+                        </div>
+                    </td>
+
+                    <td class="scorecard-cell">
+                        <div class="scorecard">
+                            <p class="scorecard-label">Affected Dimensions</p>
+                            <p class="scorecard-value">4</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <br>
+
+            <p class="attachment-note">
+                Detailed values have been securely attached to this email as an Excel spreadsheet.
+            </p>
+
+            <table class="leaks-table" role="presentation">
                 <thead>
                     <tr>
                         <th>Dimension</th>
-                        <th>Flagged Value</th>
                         <th>Type</th>
+                        <th>Leak Count</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for leak in leaks %}
+                    <!-- {% for summary in leak_summary %} -->
                     <tr>
-                        <td>{{ leak.dimension }}</td>
-                        <td class="flagged-value">{{ leak.flagged_value }}</td>
-                        <td>{{ leak.type }}</td>
+                        <td>pageReferrer</td>
+                        <td>Email</td>
+                        <td class="flagged-value">35</td>
                     </tr>
-                    {% endfor %}
+                    <!-- {% endfor %} -->
                 </tbody>
             </table>
 
-            <div class="footer-section-title">Recommended Action Steps</div>
-            <ul class="recommendation">
-                <li><strong>Review:</strong> Check the specific URLs and forms listed above to identify where the query
-                    parameters are originating from.</li>
-                <li><strong>Fix:</strong> Update the source application to strip PII before sending it to Google
-                    Analytics, or use Google Tag Manager to redact these parameters.</li>
-                <li><strong>Data Deletion Request:</strong> You may need to submit a data deletion request in GA4 for
-                    the affected dates to remove the collected PII.</li>
-            </ul>
+            <div class="section-title">Next Action Steps</div>
 
-            <center>
-                <a href="https://analytics.google.com/analytics/web/#/p{{ property_id }}/reports/intelligenthome"
-                    class="cta-button" target="_blank">Open GA4 Property</a>
-            </center>
+            <table class="recommendation recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Review:</strong>
+                        Check the affected dimensions to identify the source of the PII and determine how it &nbsp;&nbsp;is being passed to Google Analytics.
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Fix:</strong>
+                        Identify and remove PII at the source before it is sent to Google Analytics. For web &nbsp;&nbsp;streams, GA4 Data Redaction can also be configured to redact email addresses and specified &nbsp;&nbsp;URL query parameters.
+                        <a href="https://support.google.com/analytics/answer/6366371?hl=en">Best practices to avoid sending PII in GA4</a>
+                        |
+                        <a href="https://support.google.com/analytics/answer/13544947?hl=en">GA4 Data Redaction</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="recommendation-check-cell">
+                        <span class="recommendation-check">&#10003;</span>
+                    </td>
+                    <td class="recommendation-text-cell">
+                        <strong>&nbsp;&nbsp;Data Deletion Request:</strong>
+                        If PII has already been collected, submit a GA4 Data Deletion Request &nbsp;&nbsp;to remove the affected parameter values for the relevant date range.
+                        <a href="https://support.google.com/analytics/answer/9940393?hl=en">GA Data Delete Requests</a>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="text-align:center;">
+                <a href="https://analytics.google.com/analytics/web/#/p{{ property_id }}/reports/intelligenthome" class="cta-button" target="_blank">
+                    Open GA4 Property
+                </a>
+            </div>
         </div>
+
         <div class="footer">
-            <img src="https://www.tatvic.com/wp-content/uploads/2021/05/tatvic-logo.svg" alt="Tatvic Logo"
-                style="height: 24px; margin-bottom: 8px;"><br>
-            Powered by Tatvic GA4 Auditor
+            <table class="footer-table" role="presentation">
+                <tr>
+                    <td class="footer-logo-cell">
+                        <img
+                            src="https://tatvic.com/wp-content/uploads/2026/09/logo_usercentircs-scaled.png"
+                            alt="Tatvic Logo"
+                            class="footer-logo"
+                        >
+                    </td>
+                    <td class="footer-copy">
+                        <p class="footer-team">Tatvic Support Team</p>
+                        <p class="footer-link">www.tatvic.com</p>
+                    </td>
+                </tr>
+            </table>
+
+            <p class="automated-note">
+                This is an automated notification from your GA4 PII Auditor system.
+            </p>
         </div>
     </div>
 </body>
-
 </html>

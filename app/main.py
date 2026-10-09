@@ -22,11 +22,12 @@ def trigger_audit():
 @app.route("/api/audit/scheduled", methods=["POST"])
 def trigger_scheduled_audit():
     try:
-        # Runs the audit forcing the date range to last Sunday-Saturday
-        message, status_code = run_audit(force_last_week=True)
-        if status_code != 200:
-            return jsonify({"status": "error", "message": message}), status_code
-        return jsonify({"status": "success", "message": message})
+        # Runs the audit forcing the date range to last Sunday-Saturday in a background thread
+        # This prevents Cloud Run from timing out the HTTP request
+        import threading
+        thread = threading.Thread(target=run_audit, kwargs={"force_last_week": True})
+        thread.start()
+        return jsonify({"status": "success", "message": "Audit started in the background"}), 202
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
