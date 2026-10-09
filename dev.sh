@@ -11,13 +11,17 @@ cleanup() {
 trap cleanup SIGINT SIGTERM
 
 echo "Starting Flask backend with hot-reload on port 5000..."
+export PYTHONUNBUFFERED=1
 export FLASK_APP=app.main:app
 export FLASK_DEBUG=1
 flask run --host=0.0.0.0 --port=5000 &
 
+echo "Clearing .next cache..."
+rm -rf frontend/.next
+
 echo "Starting Next.js frontend with hot-reload..."
 cd frontend
-npm run dev &
+npx next dev --webpack -p 8080 &
 
 # Wait for background processes to finish
 wait

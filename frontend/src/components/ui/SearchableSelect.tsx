@@ -32,6 +32,7 @@ export function SearchableSelect({ options, value, onChange, placeholder, label,
   const filteredOptions = options.filter(option =>
     option.label.toLowerCase().includes(search.toLowerCase())
   );
+  const displayedOptions = filteredOptions.slice(0, 100);
 
   const selectedOption = options.find(o => o.value === value);
 
@@ -62,7 +63,7 @@ export function SearchableSelect({ options, value, onChange, placeholder, label,
               <input
                 type="text"
                 className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                placeholder="Search..."
+                placeholder="Search by property name, ID, or account..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onClick={(e) => e.stopPropagation()}
@@ -70,20 +71,27 @@ export function SearchableSelect({ options, value, onChange, placeholder, label,
               />
             </div>
             <ul className="max-h-60 overflow-auto py-1">
-              {filteredOptions.length > 0 ? (
-                filteredOptions.map((option) => (
-                  <li
-                    key={option.value}
-                    className={`cursor-pointer px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${value === option.value ? 'bg-blue-50 text-blue-900 font-medium' : ''}`}
-                    onClick={() => {
-                      onChange(option.value);
-                      setIsOpen(false);
-                      setSearch('');
-                    }}
-                  >
-                    {option.label}
-                  </li>
-                ))
+              {displayedOptions.length > 0 ? (
+                <>
+                  {displayedOptions.map((option) => (
+                    <li
+                      key={option.value}
+                      className={`cursor-pointer px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 ${value === option.value ? 'bg-blue-50 text-blue-900 font-medium' : ''}`}
+                      onClick={() => {
+                        onChange(option.value);
+                        setIsOpen(false);
+                        setSearch('');
+                      }}
+                    >
+                      {option.label}
+                    </li>
+                  ))}
+                  {filteredOptions.length > 100 && (
+                    <li className="px-3 py-2 text-xs text-gray-500 bg-gray-50 text-center border-t border-gray-100">
+                      Showing first 100 of {filteredOptions.length} results. Type to refine search.
+                    </li>
+                  )}
+                </>
               ) : (
                 <li className="px-3 py-3 text-sm text-gray-500 text-center italic">No properties found.</li>
               )}

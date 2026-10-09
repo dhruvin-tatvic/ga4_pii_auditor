@@ -26,3 +26,6 @@ frontend/.env.production.local
 
 tests/
 debug/
+scratch/
+frontend/log.txt
+poll_deployment.sh

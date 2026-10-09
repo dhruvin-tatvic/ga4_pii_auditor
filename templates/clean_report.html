@@ -32,7 +32,6 @@
             overflow: hidden;
         }
 
-        /* PDF-style black header */
         .header {
             background: #000000;
             padding: 24px 40px;
@@ -82,12 +81,11 @@
             font-weight: 700;
         }
 
-        /* Three PDF-style information cards */
         .cards {
             width: 100%;
             border-collapse: separate;
             border-spacing: 12px 0;
-            margin: 0 -12px 28px;
+            margin: 0 0 28px;
         }
 
         .card {
@@ -125,7 +123,6 @@
             word-break: break-word;
         }
 
-        /* Status panel */
         .status-box {
             width: 100%;
             border: 1px solid #e2dcef;
@@ -197,7 +194,6 @@
             padding-left: 12px;
         }
 
-        /* PDF-style footer */
         .footer {
             background: #fafafa;
             border-top: 1px solid #e6e2f1;
@@ -246,159 +242,168 @@
             line-height: 1.5;
         }
 
-        /* Email/mobile handling */
         @media only screen and (max-width: 620px) {
             body {
-                padding: 12px 0;
+                padding: 12px 0 !important;
             }
 
             .page {
-                max-width: calc(100% - 24px);
+                max-width: calc(100% - 24px) !important;
+                width: 100% !important;
             }
 
             .header {
-                padding: 20px;
+                padding: 20px !important;
             }
 
             .header-title {
-                font-size: 17px;
+                font-size: 17px !important;
             }
 
             .header-logo {
-                width: 110px;
+                width: 110px !important;
             }
 
             .content {
-                padding: 25px 20px 30px;
+                padding: 25px 20px 30px !important;
             }
 
             .cards {
-                display: block;
-                width: 100%;
-                margin: 0 0 22px;
+                display: block !important;
+                width: 100% !important;
+                margin: 0 0 22px !important;
             }
 
             .card {
-                display: block;
-                width: 100%;
-                margin: 0 0 10px;
+                display: block !important;
+                width: 100% !important;
+                margin: 0 0 10px !important;
+                box-sizing: border-box !important;
             }
 
             .footer {
-                padding: 20px;
+                padding: 20px !important;
             }
 
             .footer-logo-cell {
-                width: 90px;
+                width: 90px !important;
             }
 
             .footer-logo {
-                width: 62px;
+                width: 62px !important;
             }
         }
     </style>
 </head>
 
-<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif;">
-    <div class="page">
+<body style="margin: 0; padding: 28px 0; background-color: #f4f5f6; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif; color: #676767; line-height: 1.55; -webkit-text-size-adjust: 100%;">
+    <!-- Main Email Wrapper Table for Forwarding & Cross-Client Compatibility -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; margin: 0; padding: 0; background-color: #f4f5f6;">
+        <tr>
+            <td align="center" style="padding: 28px 12px;">
+                <div class="page" style="width: 760px; max-width: 760px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e6e2f1; border-radius: 12px; overflow: hidden; text-align: left; box-sizing: border-box;">
 
-        <!-- Header -->
-        <div class="header">
-            <table class="header-table" role="presentation">
-                <tr>
-                    <td>
-                        <img
-                            src="https://tatvic.com/wp-content/themes/tatvic-digital-analytics/assets/img/logo/tatvic-light-logo.svg"
-                            alt="Tatvic Logo"
-                            class="header-logo"
-                        >
-                    </td>
-                    <td class="header-title">
-                        GA4 PII Audit Report
-                    </td>
-                </tr>
-            </table>
-        </div>
+                    <!-- Header -->
+                    <div class="header" style="background-color: #000000; padding: 24px 40px;">
+                        <table class="header-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img
+                                        src="https://tatvic.com/wp-content/themes/tatvic-digital-analytics/assets/img/logo/tatvic-light-logo.svg"
+                                        alt="Tatvic Logo"
+                                        class="header-logo"
+                                        width="150"
+                                        style="width: 150px; height: auto; display: block; border: 0;"
+                                    >
+                                </td>
+                                <td class="header-title" style="text-align: right; color: #ffffff; font-size: 22px; line-height: 1.25; font-weight: 700; white-space: nowrap; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif; vertical-align: middle;">
+                                    GA4 PII Audit Report
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-        <!-- Main content -->
-        <div class="content">
+                    <!-- Main content -->
+                    <div class="content" style="padding: 34px 40px 38px; background-color: #ffffff;">
 
-            <p class="greeting">Hello Team,</p>
+                        <p class="greeting" style="margin: 0 0 20px; color: #111111; font-size: 17px; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Hello Team,</p>
 
-            <p class="intro-text">
-                The GA4 PII Auditor did not find any issues for
-                <strong>Demo Client</strong> property.
-                No PII was detected in the dimensions.
-            </p>
+                        <p class="intro-text" style="margin: 0 0 24px; color: #676767; font-size: 16px; font-weight: 400; line-height: 1.75; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                            The GA4 PII Auditor did not find any issues for
+                            <strong style="color: #7500FF; font-weight: 700;">{{ client_name }}</strong> property.
+                            No PII was detected in the dimensions.
+                        </p>
 
-            <!-- Property details -->
-            <table class="cards" role="presentation">
-                <tr>
-                    <td class="card">
-                        <p class="card-label">Client</p>
-                        <p class="card-value">Demo Client</p>
-                    </td>
+                        <!-- Property details -->
+                        <table class="cards" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 0 28px;">
+                            <tr>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Client</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ client_name }}</p>
+                                </td>
 
-                    <td class="card">
-                        <p class="card-label">GA4 Property</p>
-                        <p class="card-value">983462832</p>
-                    </td>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">GA4 Property</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ property_id }}</p>
+                                </td>
 
-                    <td class="card">
-                        <p class="card-label">Audit Period</p>
-                        <p class="card-value">01-10-2026 to 31-10-2026</p>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <br>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Audit Period</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ start_date }} to {{ end_date }}</p>
+                                </td>
+                            </tr>
+                        </table>
 
-            <!-- Audit status -->
-            <div class="status-box">
-                <p class="status-value">No Issues Found</p>
-                <p class="status-label">PII Audit Status</p>
-            </div>
+                        <!-- Audit status -->
+                        <div class="status-box" style="width: 100%; border: 1px solid #e2dcef; border-radius: 10px; background-color: #ffffff; text-align: center; padding: 20px; margin: 0 0 24px; box-sizing: border-box;">
+                            <p class="status-value" style="margin: 0; color: #7500FF; font-size: 28px; line-height: 1.1; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">No Issues Found</p>
+                            <p class="status-label" style="margin: 7px 0 0; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">PII Audit Status</p>
+                        </div>
 
-            <!-- Recommended action -->
-            <div class="section-title">Recommended Action Steps</div>
+                        <!-- Recommended action -->
+                        <div class="section-title" style="margin: 30px 0 14px; color: #111111; font-size: 17px; line-height: 1.3; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Recommended Action Steps</div>
 
-            <table class="recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td class="recommendation-check-cell">
-                        <span class="recommendation-check">&#10003;</span>
-                    </td>
-                    <td class="recommendation-text-cell">
-                        &nbsp;&nbsp;No actions are required at this time. Your property is compliant
-                        with Google's PII policies.
-                    </td>
-                </tr>
-            </table>
+                        <table class="recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
+                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
+                                </td>
+                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    No actions are required at this time. Your property is compliant with Google's PII policies.
+                                </td>
+                            </tr>
+                        </table>
 
-        </div>
+                    </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <table class="footer-table" role="presentation">
-                <tr>
-                    <td class="footer-logo-cell">
-                        <img
-                            src="https://tatvic.com/wp-content/uploads/2026/09/logo_usercentircs-scaled.png"
-                            alt="Tatvic Logo"
-                            class="footer-logo"
-                        >
-                    </td>
-                    <td class="footer-copy">
-                        <p class="footer-team">Tatvic Support Team</p>
-                        <p class="footer-link">www.tatvic.com</p>
-                    </td>
-                </tr>
-            </table>
+                    <!-- Footer -->
+                    <div class="footer" style="background-color: #fafafa; border-top: 1px solid #e6e2f1; padding: 22px 40px 26px;">
+                        <table class="footer-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td class="footer-logo-cell" style="width: 115px; vertical-align: middle;">
+                                    <img
+                                        src="https://tatvic.com/wp-content/uploads/2026/09/logo_usercentircs-scaled.png"
+                                        alt="Tatvic Logo"
+                                        class="footer-logo"
+                                        width="76"
+                                        style="width: 76px; height: auto; display: block; border: 0;"
+                                    >
+                                </td>
+                                <td class="footer-copy" style="vertical-align: middle; padding-left: 15px;">
+                                    <p class="footer-team" style="margin: 0 0 2px; color: #111111; font-size: 16px; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Tatvic Support Team</p>
+                                    <p class="footer-link" style="margin: 0; color: #7500FF; font-size: 14px; font-weight: 500; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;"><a href="https://www.tatvic.com" style="color: #7500FF; text-decoration: none;">www.tatvic.com</a></p>
+                                </td>
+                            </tr>
+                        </table>
 
-            <p class="automated-note">
-                This is an automated notification from your GA4 PII Auditor system.
-            </p>
-        </div>
+                        <p class="automated-note" style="margin: 20px 0 0; text-align: center; color: #9aa1aa; font-size: 12px; line-height: 1.5; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                            This is an automated notification from your GA4 PII Auditor system.
+                        </p>
+                    </div>
 
-    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

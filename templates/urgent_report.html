@@ -85,7 +85,7 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 12px 0;
-            margin: 0 -12px 28px;
+            margin: 0 0 28px;
         }
 
         .card {
@@ -162,7 +162,7 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 12px 0;
-            margin: 0 -12px 28px;
+            margin: 0 0 28px;
             table-layout: fixed;
         }
 
@@ -298,9 +298,8 @@
 
         .cta-button {
             display: inline-block;
-            /* background: #7500FF; */
             color: #7500FF;
-            border-color:#7500FF;
+            border-color: #7500FF;
             border-width: 1px;
             border-style: solid;
             padding: 12px 24px;
@@ -361,239 +360,262 @@
 
         @media only screen and (max-width: 620px) {
             body {
-                padding: 12px 0;
+                padding: 12px 0 !important;
             }
 
             .page {
-                max-width: calc(100% - 24px);
+                max-width: calc(100% - 24px) !important;
+                width: 100% !important;
             }
 
             .header {
-                padding: 20px;
+                padding: 20px !important;
             }
 
             .header-title {
-                font-size: 17px;
+                font-size: 17px !important;
             }
 
             .content {
-                padding: 25px 20px 30px;
+                padding: 25px 20px 30px !important;
             }
 
             .cards {
-                display: block;
-                width: 100%;
-                margin: 0 0 22px;
+                display: block !important;
+                width: 100% !important;
+                margin: 0 0 22px !important;
             }
 
             .card {
-                display: block;
-                width: 100%;
-                margin: 0 0 10px;
+                display: block !important;
+                width: 100% !important;
+                margin: 0 0 10px !important;
+                box-sizing: border-box !important;
             }
 
             .scorecards-table {
-                border-spacing: 4px 0;
+                border-spacing: 4px 0 !important;
             }
 
             .scorecard {
-                padding: 16px 8px;
+                padding: 16px 8px !important;
             }
 
             .scorecard-value {
-                font-size: 24px;
+                font-size: 24px !important;
             }
 
             .footer {
-                padding: 20px;
+                padding: 20px !important;
             }
 
             .footer-logo-cell {
-                width: 90px;
+                width: 90px !important;
             }
 
             .footer-logo {
-                width: 62px;
+                width: 62px !important;
             }
         }
     </style>
 </head>
 
-<body style="margin:0;padding:0;background-color:#f4f5f7;font-family:'Trebuchet MS','Segoe UI',Helvetica,Arial,sans-serif;">
-    <div class="page">
-        <div class="header">
-            <table class="header-table" role="presentation">
-                <tr>
-                    <td>
-                        <img
-                            src="https://tatvic.com/wp-content/themes/tatvic-digital-analytics/assets/img/logo/tatvic-light-logo.svg"
-                            alt="Tatvic Logo"
-                            class="header-logo"
-                        >
-                    </td>
-                    <td class="header-title">
-                        PII Data Detected in GA4
-                    </td>
-                </tr>
-            </table>
-        </div>
+<body style="margin: 0; padding: 28px 0; background-color: #f4f5f6; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif; color: #676767; line-height: 1.55; -webkit-text-size-adjust: 100%;">
+    <!-- Main Email Wrapper Table for Forwarding & Cross-Client Compatibility -->
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; margin: 0; padding: 0; background-color: #f4f5f6;">
+        <tr>
+            <td align="center" style="padding: 28px 12px;">
+                <div class="page" style="width: 760px; max-width: 760px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e6e2f1; border-radius: 12px; overflow: hidden; text-align: left; box-sizing: border-box;">
+                    
+                    <!-- Header -->
+                    <div class="header" style="background-color: #000000; padding: 24px 40px;">
+                        <table class="header-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="vertical-align: middle;">
+                                    <img
+                                        src="https://tatvic.com/wp-content/themes/tatvic-digital-analytics/assets/img/logo/tatvic-light-logo.svg"
+                                        alt="Tatvic Logo"
+                                        class="header-logo"
+                                        width="150"
+                                        style="width: 150px; height: auto; display: block; border: 0;"
+                                    >
+                                </td>
+                                <td class="header-title" style="text-align: right; color: #ffffff; font-size: 22px; line-height: 1.25; font-weight: 700; white-space: nowrap; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif; vertical-align: middle;">
+                                    PII Data Detected in GA4
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
 
-        <div class="content">
-            <p class="greeting">Hello Team,</p>
+                    <!-- Main Content -->
+                    <div class="content" style="padding: 34px 40px 38px; background-color: #ffffff;">
+                        <p class="greeting" style="margin: 0 0 20px; color: #111111; font-size: 17px; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Hello Team,</p>
 
-            <p class="intro-text">
-                The GA4 PII Auditor has detected Personally Identifiable Information (PII) flowing into the
-                <strong>Demo Client</strong> property. This violates Google's Terms of Service and puts the property at risk of data deletion.
-            </p>
+                        <p class="intro-text" style="margin: 0 0 24px; color: #676767; font-size: 16px; font-weight: 400; line-height: 1.75; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                            The GA4 PII Auditor has detected Personally Identifiable Information (PII) flowing into the
+                            <strong style="color: #7500FF; font-weight: 700;">{{ client_name }}</strong> property. This violates Google's Terms of Service and puts the property at risk of data deletion.
+                        </p>
 
-            <table class="cards" role="presentation">
-                <tr>
-                    <td class="card">
-                        <p class="card-label">Client</p>
-                        <p class="card-value">Demo Client</p>
-                    </td>
+                        <!-- Property Details Cards -->
+                        <table class="cards" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 0 28px;">
+                            <tr>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Client</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ client_name }}</p>
+                                </td>
 
-                    <td class="card">
-                        <p class="card-label">GA4 Property</p>
-                        <p class="card-value">983462832</p>
-                    </td>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">GA4 Property</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ property_id }}</p>
+                                </td>
 
-                    <td class="card">
-                        <p class="card-label">Audit Period</p>
-                        <p class="card-value">01-10-2026 to 31-10-2026</p>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <br>
+                                <td class="card" style="width: 33.333%; background-color: #eee8fa; border-radius: 10px; padding: 18px 12px; text-align: center; vertical-align: middle;">
+                                    <p class="card-label" style="margin: 0 0 5px; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Audit Period</p>
+                                    <p class="card-value" style="margin: 0; color: #111111; font-size: 16px; line-height: 1.35; font-weight: 700; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ start_date }} to {{ end_date }}</p>
+                                </td>
+                            </tr>
+                        </table>
 
-            <div class="status-box">
-                <p class="status-value">PII Detected</p>
-                <p class="status-label">Audit Status</p>
-            </div>
-
-            <div class="section-title">Flagged Data Summary</div>
-
-            <table class="scorecards-table" cellpadding="0" cellspacing="0" border="0" role="presentation">
-                <tr>
-                    <td class="scorecard-cell">
-                        <div class="scorecard">
-                            <p class="scorecard-label">PII Detection Rate</p>
-                            <p class="scorecard-value">3.5%
-                            </p>
+                        <!-- Status Box -->
+                        <div class="status-box" style="width: 100%; border: 1px solid #f4c2c8; border-radius: 10px; background-color: #fff4f5; text-align: center; padding: 20px; margin: 0 0 24px; box-sizing: border-box;">
+                            <p class="status-value" style="margin: 0; color: #d7263d; font-size: 28px; line-height: 1.1; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">PII Detected</p>
+                            <p class="status-label" style="margin: 7px 0 0; color: #666666; font-size: 13px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Audit Status</p>
                         </div>
-                    </td>
 
-                    <td class="scorecard-cell">
-                        <div class="scorecard">
-                            <p class="scorecard-label">Total Leaks Detected</p>
-                            <p class="scorecard-value">35</p>
+                        <!-- Flagged Data Summary -->
+                        <div class="section-title" style="margin: 30px 0 14px; color: #111111; font-size: 17px; line-height: 1.3; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Flagged Data Summary</div>
+
+                        <table class="scorecards-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: separate; border-spacing: 12px 0; margin: 0 0 20px; table-layout: fixed;">
+                            <tr>
+                                <td class="scorecard-cell" style="width: 33.333%; vertical-align: top; padding: 0;">
+                                    <div class="scorecard" style="background-color: #f6f6f7; border: 1px solid #e6e2f1; border-radius: 10px; padding: 18px 12px; min-height: 110px; text-align: center; box-sizing: border-box;">
+                                        <p class="scorecard-label" style="margin: 0 0 8px; color: #666666; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">PII Detection Rate</p>
+                                        <p class="scorecard-value" style="margin: 0; color: #7500FF; font-size: 30px; line-height: 1.1; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                            {% if total_overall_count and total_overall_count > 0 %}
+                                                {{ pii_percentage }}%
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </td>
+
+                                <td class="scorecard-cell" style="width: 33.333%; vertical-align: top; padding: 0;">
+                                    <div class="scorecard" style="background-color: #f6f6f7; border: 1px solid #e6e2f1; border-radius: 10px; padding: 18px 12px; min-height: 110px; text-align: center; box-sizing: border-box;">
+                                        <p class="scorecard-label" style="margin: 0 0 8px; color: #666666; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Total Leaks Detected</p>
+                                        <p class="scorecard-value" style="margin: 0; color: #7500FF; font-size: 30px; line-height: 1.1; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ total_leaks }}</p>
+                                    </div>
+                                </td>
+
+                                <td class="scorecard-cell" style="width: 33.333%; vertical-align: top; padding: 0;">
+                                    <div class="scorecard" style="background-color: #f6f6f7; border: 1px solid #e6e2f1; border-radius: 10px; padding: 18px 12px; min-height: 110px; text-align: center; box-sizing: border-box;">
+                                        <p class="scorecard-label" style="margin: 0 0 8px; color: #666666; font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Affected Dimensions</p>
+                                        <p class="scorecard-value" style="margin: 0; color: #7500FF; font-size: 30px; line-height: 1.1; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ unique_dimensions }}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <p class="attachment-note" style="margin: 0 0 18px; color: #7500FF; font-size: 14px; font-style: italic; font-weight: 500; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                            Detailed values have been securely attached to this email as an Excel spreadsheet.
+                        </p>
+
+                        <!-- Leaks Table -->
+                        <table class="leaks-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 14px; border: 1px solid #e6e2f1;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e6e2f1; border-right: 1px solid #e6e2f1; background-color: #000000; color: #ffffff; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Dimension</th>
+                                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e6e2f1; background-color: #000000; color: #ffffff; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Leak Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for summary in leak_summary %}
+                                <tr>
+                                    <td style="text-align: left; padding: 12px; border-bottom: 1px solid #e6e2f1; border-right: 1px solid #e6e2f1; color: #676767; word-break: break-word; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">{{ summary.dimension|remove_prefix }}</td>
+                                    <td class="flagged-value" style="text-align: left; padding: 12px; border-bottom: 1px solid #e6e2f1; color: #d7263d; font-family: monospace, Courier, monospace; font-weight: 700; font-size: 14px;">{{ summary.count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                        <!-- Next Action Steps -->
+                        <div class="section-title" style="margin: 30px 0 14px; color: #111111; font-size: 17px; line-height: 1.3; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Next Action Steps</div>
+
+                        <table class="recommendation recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
+                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
+                                </td>
+                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    <strong style="color: #111111;">Review:</strong>
+                                    Check the affected dimensions to identify the source of the PII and determine how it is being passed to Google Analytics.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="recommendation-spacer" style="height: 12px; line-height: 12px; font-size: 0; padding: 0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
+                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
+                                </td>
+                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    <strong style="color: #111111;">Fix:</strong>
+                                    Identify and remove PII at the source before it is sent to Google Analytics. For web streams, GA4 Data Redaction can also be configured to redact email addresses and specified URL query parameters.
+                                    <a href="https://support.google.com/analytics/answer/6366371?hl=en" style="color: #7500FF; text-decoration: underline;">Best practices to avoid sending PII in GA4</a>
+                                    |
+                                    <a href="https://support.google.com/analytics/answer/13544947?hl=en" style="color: #7500FF; text-decoration: underline;">GA4 Data Redaction</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="recommendation-spacer" style="height: 12px; line-height: 12px; font-size: 0; padding: 0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
+                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
+                                </td>
+                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    <strong style="color: #111111;">Data Deletion Request:</strong>
+                                    If PII has already been collected, submit a GA4 Data Deletion Request to remove the affected parameter values for the relevant date range.
+                                    <a href="https://support.google.com/analytics/answer/9940393?hl=en" style="color: #7500FF; text-decoration: underline;">GA Data Delete Requests</a>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- CTA Button -->
+                        <div style="text-align: center; margin-top: 28px;">
+                            <a href="https://analytics.google.com/analytics/web/#/p{{ property_id }}/reports/intelligenthome" class="cta-button" target="_blank" style="display: inline-block; color: #7500FF; border: 1px solid #7500FF; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: 700; text-align: center; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif; background-color: #ffffff;">
+                                Open GA4 Property
+                            </a>
                         </div>
-                    </td>
+                    </div>
 
-                    <td class="scorecard-cell">
-                        <div class="scorecard">
-                            <p class="scorecard-label">Affected Dimensions</p>
-                            <p class="scorecard-value">4</p>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-            <br>
+                    <!-- Footer -->
+                    <div class="footer" style="background-color: #fafafa; border-top: 1px solid #e6e2f1; padding: 22px 40px 26px;">
+                        <table class="footer-table" role="presentation" cellpadding="0" cellspacing="0" border="0" style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td class="footer-logo-cell" style="width: 115px; vertical-align: middle;">
+                                    <img
+                                        src="https://tatvic.com/wp-content/uploads/2026/09/logo_usercentircs-scaled.png"
+                                        alt="Tatvic Logo"
+                                        class="footer-logo"
+                                        width="76"
+                                        style="width: 76px; height: auto; display: block; border: 0;"
+                                    >
+                                </td>
+                                <td class="footer-copy" style="vertical-align: middle; padding-left: 15px;">
+                                    <p class="footer-team" style="margin: 0 0 2px; color: #111111; font-size: 16px; font-weight: 700; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">Tatvic Support Team</p>
+                                    <p class="footer-link" style="margin: 0; color: #7500FF; font-size: 14px; font-weight: 500; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;"><a href="https://www.tatvic.com" style="color: #7500FF; text-decoration: none;">www.tatvic.com</a></p>
+                                </td>
+                            </tr>
+                        </table>
 
-            <p class="attachment-note">
-                Detailed values have been securely attached to this email as an Excel spreadsheet.
-            </p>
-
-            <table class="leaks-table" role="presentation">
-                <thead>
-                    <tr>
-                        <th>Dimension</th>
-                        <th>Type</th>
-                        <th>Leak Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- {% for summary in leak_summary %} -->
-                    <tr>
-                        <td>pageReferrer</td>
-                        <td>Email</td>
-                        <td class="flagged-value">35</td>
-                    </tr>
-                    <!-- {% endfor %} -->
-                </tbody>
-            </table>
-
-            <div class="section-title">Next Action Steps</div>
-
-            <table class="recommendation recommendation-table" role="presentation" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                    <td class="recommendation-check-cell">
-                        <span class="recommendation-check">&#10003;</span>
-                    </td>
-                    <td class="recommendation-text-cell">
-                        <strong>&nbsp;&nbsp;Review:</strong>
-                        Check the affected dimensions to identify the source of the PII and determine how it &nbsp;&nbsp;is being passed to Google Analytics.
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="recommendation-check-cell">
-                        <span class="recommendation-check">&#10003;</span>
-                    </td>
-                    <td class="recommendation-text-cell">
-                        <strong>&nbsp;&nbsp;Fix:</strong>
-                        Identify and remove PII at the source before it is sent to Google Analytics. For web &nbsp;&nbsp;streams, GA4 Data Redaction can also be configured to redact email addresses and specified &nbsp;&nbsp;URL query parameters.
-                        <a href="https://support.google.com/analytics/answer/6366371?hl=en">Best practices to avoid sending PII in GA4</a>
-                        |
-                        <a href="https://support.google.com/analytics/answer/13544947?hl=en">GA4 Data Redaction</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="recommendation-spacer">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="recommendation-check-cell">
-                        <span class="recommendation-check">&#10003;</span>
-                    </td>
-                    <td class="recommendation-text-cell">
-                        <strong>&nbsp;&nbsp;Data Deletion Request:</strong>
-                        If PII has already been collected, submit a GA4 Data Deletion Request &nbsp;&nbsp;to remove the affected parameter values for the relevant date range.
-                        <a href="https://support.google.com/analytics/answer/9940393?hl=en">GA Data Delete Requests</a>
-                    </td>
-                </tr>
-            </table>
-
-            <div style="text-align:center;">
-                <a href="https://analytics.google.com/analytics/web/#/p{{ property_id }}/reports/intelligenthome" class="cta-button" target="_blank">
-                    Open GA4 Property
-                </a>
-            </div>
-        </div>
-
-        <div class="footer">
-            <table class="footer-table" role="presentation">
-                <tr>
-                    <td class="footer-logo-cell">
-                        <img
-                            src="https://tatvic.com/wp-content/uploads/2026/09/logo_usercentircs-scaled.png"
-                            alt="Tatvic Logo"
-                            class="footer-logo"
-                        >
-                    </td>
-                    <td class="footer-copy">
-                        <p class="footer-team">Tatvic Support Team</p>
-                        <p class="footer-link">www.tatvic.com</p>
-                    </td>
-                </tr>
-            </table>
-
-            <p class="automated-note">
-                This is an automated notification from your GA4 PII Auditor system.
-            </p>
-        </div>
-    </div>
+                        <p class="automated-note" style="margin: 20px 0 0; text-align: center; color: #9aa1aa; font-size: 12px; line-height: 1.5; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                            This is an automated notification from your GA4 PII Auditor system.
+                        </p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>

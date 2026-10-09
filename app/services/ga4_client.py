@@ -45,31 +45,46 @@ class GA4Client:
     def get_properties_list(self):
         try:
             properties = []
+            page_token = None
 
-            request = self.admin_service.accountSummaries().list()
-            response = request.execute()
+            while True:
+                request = self.admin_service.accountSummaries().list(
+                    pageSize=200,
+                    pageToken=page_token
+                )
+                response = request.execute()
 
-            for account in response.get('accountSummaries', []):
-
-                for propertySummary in account.get(
-                    'propertySummaries',
-                    []
-                ):
-
-                    properties.append({
-                        "id": propertySummary.get(
-                            "property"
-                        ).split("/")[1],
-
-                        "name": propertySummary.get(
-                            "displayName"
-                        ),
-
-                        "account_name": account.get(
-                            "displayName"
+                for account in response.get('accountSummaries', []):
+                    account_name = account.get('displayName')
+                    for propertySummary in account.get(
+                        'propertySummaries',
+                        []
+                    ):
+                        prop_path = propertySummary.get("property", "")
+                        prop_id = (
+                            prop_path.split("/")[1]
+                            if "/" in prop_path
+                            else prop_path
                         )
-                    })
+                        properties.append({
+                            "id": prop_id,
+                            "name": propertySummary.get(
+                                "displayName"
+                            ),
+                            "account_name": account_name
+                        })
 
+                page_token = response.get('nextPageToken')
+                if not page_token:
+                    break
+
+            # Sort alphabetically by account name, then property name
+            properties.sort(
+                key=lambda p: (
+                    (p.get("account_name") or "").lower(),
+                    (p.get("name") or "").lower()
+                )
+            )
             return properties
 
         except Exception as e:
@@ -79,39 +94,44 @@ class GA4Client:
     def get_all_custom_dimensions(self, property_id):
         try:
             custom_dims = []
+            page_token = None
 
-            response = (
-                self.admin_service
-                .properties()
-                .customDimensions()
-                .list(
-                    parent=f"properties/{property_id}"
+            while True:
+                response = (
+                    self.admin_service
+                    .properties()
+                    .customDimensions()
+                    .list(
+                        parent=f"properties/{property_id}",
+                        pageSize=200,
+                        pageToken=page_token
+                    )
+                    .execute()
                 )
-                .execute()
-            )
 
-            for dim in response.get(
-                'customDimensions',
-                []
-            ):
+                for dim in response.get(
+                    'customDimensions',
+                    []
+                ):
+                    scope = dim.get('scope')
+                    param_name = dim.get('parameterName')
 
-                scope = dim.get('scope')
-                param_name = dim.get('parameterName')
+                    if scope == 'EVENT':
+                        custom_dims.append(
+                            f"customEvent:{param_name}"
+                        )
+                    elif scope == 'USER':
+                        custom_dims.append(
+                            f"customUser:{param_name}"
+                        )
+                    elif scope == 'ITEM':
+                        custom_dims.append(
+                            f"customItem:{param_name}"
+                        )
 
-                if scope == 'EVENT':
-                    custom_dims.append(
-                        f"customEvent:{param_name}"
-                    )
-
-                elif scope == 'USER':
-                    custom_dims.append(
-                        f"customUser:{param_name}"
-                    )
-
-                elif scope == 'ITEM':
-                    custom_dims.append(
-                        f"customItem:{param_name}"
-                    )
+                page_token = response.get('nextPageToken')
+                if not page_token:
+                    break
 
             return custom_dims
 
@@ -120,7 +140,6 @@ class GA4Client:
                 f"Failed to fetch custom dimensions "
                 f"for {property_id}: {e}"
             )
-
             return []
 
     def get_total_event_count(
@@ -179,9 +198,10 @@ class GA4Client:
     ):
         property_path = f"properties/{property_id}"
 
-        metrics = [
-            Metric(name="eventCount")
-        ]
+        # In GA4 Data API, querying dimensions with an empty metrics list returns
+        # all unique dimension values without encountering scope incompatibility errors
+        # (such as eventCount being incompatible with customItem or item-scoped dimensions).
+        metrics = []
 
         all_leaks = []
         seen_leaks = set()
@@ -302,24 +322,19 @@ class GA4Client:
                     invalid_dim
                     and invalid_dim in dimensions
                 ):
-
                     print(
                         f"Skipping invalid GA4 dimension: "
                         f"{invalid_dim} ({e})"
                     )
-
                     continue
 
+                # If the dimension is incompatible or causes an API error, skip it
+                # gracefully so the audit can complete for all other valid dimensions
                 print(
-                    f"Error querying GA4 property "
-                    f"{property_id} for dimension "
-                    f"{dim}: {e}"
+                    f"Warning: Skipping dimension '{dim}' for property "
+                    f"{property_id} due to query error: {e}"
                 )
-
-                raise Exception(
-                    f"Failed to query GA4 property "
-                    f"dimension: {e}"
-                )
+                continue
 
         print(
             f"GA4 property {property_id} "

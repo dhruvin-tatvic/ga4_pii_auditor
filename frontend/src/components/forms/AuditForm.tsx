@@ -22,10 +22,10 @@ interface ClientListItem {
   send_to_cc?: string;
 }
 
-const getLast7Days = () => {
+const getLast15Days = () => {
   const end = new Date();
   const start = new Date();
-  start.setDate(end.getDate() - 6);
+  start.setDate(end.getDate() - 14);
 
   const formatDate = (date: Date) => date.toISOString().split('T')[0];
 
@@ -41,14 +41,17 @@ export function AuditForm() {
   const [clientList, setClientList] = useState<ClientListItem[]>([]);
   const [isLoadingClients, setIsLoadingClients] = useState(false);
 
-  const [formData, setFormData] = useState<AuditPayload>({
-    client_name: '',
-    property_id: '',
-    property_access: '',
-    start_date: '',
-    end_date: '',
-    send_to: '',
-    send_to_cc: '',
+  const [formData, setFormData] = useState<AuditPayload>(() => {
+    const { start_date, end_date } = getLast15Days();
+    return {
+      client_name: '',
+      property_id: '',
+      property_access: '',
+      start_date,
+      end_date,
+      send_to: '',
+      send_to_cc: '',
+    };
   });
 
   const [properties, setProperties] = useState<Property[]>([]);
@@ -133,13 +136,35 @@ export function AuditForm() {
     }
   };
 
+  const validateEmailCsv = (val: string): boolean => {
+    if (!val || !val.trim()) return true;
+    const emails = val.replace(/;/g, ',').split(',').map(e => e.trim()).filter(Boolean);
+    if (emails.length === 0) return false;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emails.every(e => emailRegex.test(e));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateEmailCsv(formData.send_to)) {
+      setFeedback({
+        type: 'error',
+        message: 'Please enter valid comma-separated email address(es) for Send To (Email).'
+      });
+      return;
+    }
+    if (formData.send_to_cc && !validateEmailCsv(formData.send_to_cc)) {
+      setFeedback({
+        type: 'error',
+        message: 'Please enter valid comma-separated email address(es) for Send To CC (Email).'
+      });
+      return;
+    }
     await runAuditFromPayload(formData);
   };
 
   const handleQuickAudit = async (client: ClientListItem) => {
-    const { start_date, end_date } = getLast7Days();
+    const { start_date, end_date } = getLast15Days();
 
     await runAuditFromPayload({
       client_name: client.client_name,
@@ -155,14 +180,14 @@ export function AuditForm() {
 
   const propertyOptions = properties.map(p => ({
     value: p.id,
-    label: `${p.name} (${p.id})`
+    label: p.account_name ? `${p.name} (${p.id}) • ${p.account_name}` : `${p.name} (${p.id})`
   }));
 
   return (
     <Card className="w-full max-w-6xl mx-auto">
       <CardHeader
         title="Trigger GA4 PII Audit"
-        description="Use the form for custom runs or click a client button for a quick last-7-days audit."
+        description="Use the form for custom runs or click a client button for a quick last-15-days audit."
       />
       <CardBody>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -206,8 +231,23 @@ export function AuditForm() {
                 <Input label="End Date" name="end_date" type="date" value={formData.end_date} onChange={handleChange} />
               </div>
 
-              <Input label="Send To (Email)" name="send_to" type="email" value={formData.send_to} onChange={handleChange} required placeholder="alert@acme.com" />
-              <Input label="Send To CC (Email)" name="send_to_cc" type="email" value={formData.send_to_cc} onChange={handleChange} placeholder="team@acme.com" />
+              <Input
+                label="Send To (Email)"
+                name="send_to"
+                type="text"
+                value={formData.send_to}
+                onChange={handleChange}
+                required
+                placeholder="alert@acme.com, ops@acme.com"
+              />
+              <Input
+                label="Send To CC (Email)"
+                name="send_to_cc"
+                type="text"
+                value={formData.send_to_cc}
+                onChange={handleChange}
+                placeholder="team@acme.com, manager@acme.com"
+              />
             </div>
 
             {feedback && (
@@ -226,7 +266,7 @@ export function AuditForm() {
           <div className="border border-gray-200 rounded-xl bg-white p-4 h-full">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-gray-900">Client List</h2>
-              <span className="text-xs text-gray-500">Last 7 days default</span>
+              <span className="text-xs text-gray-500">Last 15 days default</span>
             </div>
 
             {isLoadingClients ? (
