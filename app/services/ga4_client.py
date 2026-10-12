@@ -4,6 +4,8 @@ from google.analytics.data_v1beta import BetaAnalyticsDataClient
 from google.analytics.data_v1beta.types import (
     DateRange,
     Dimension,
+    Filter,
+    FilterExpression,
     Metric,
     RunReportRequest,
 )
@@ -11,6 +13,13 @@ from googleapiclient.discovery import build
 
 from app.services.pii_detector import PIIDetector
 from app.utils.auth import get_oauth_creds
+
+# Server-side GA4 RE2 regex pre-filter for candidate PII.
+# Matches emails (@ or %40), phone keywords, or name keywords with assignment delimiters.
+GA4_PII_CANDIDATE_REGEX = (
+    r"(@|%40|\b((child_?|full_?|first_?|last_?|customer_?|user_?|contact_?)?name|"
+    r"phone(_?number|_?no)?|mobile(_?number|_?no)?)\b\s*([:=]|%3[daDA]))"
+)
 
 
 class GA4Client:
@@ -212,10 +221,24 @@ class GA4Client:
         for dim in dimensions:
 
             offset = 0
+            use_filter = True
 
             try:
 
                 while True:
+
+                    dimension_filter = None
+                    if use_filter:
+                        dimension_filter = FilterExpression(
+                            filter=Filter(
+                                field_name=dim,
+                                string_filter=Filter.StringFilter(
+                                    match_type=Filter.StringFilter.MatchType.PARTIAL_REGEXP,
+                                    value=GA4_PII_CANDIDATE_REGEX,
+                                    case_sensitive=False,
+                                ),
+                            )
+                        )
 
                     request = RunReportRequest(
                         property=property_path,
@@ -233,14 +256,28 @@ class GA4Client:
                             )
                         ],
 
+                        dimension_filter=dimension_filter,
+
                         # Explicit pagination
                         limit=page_size,
                         offset=offset
                     )
 
-                    response = self.client.run_report(
-                        request
-                    )
+                    try:
+                        response = self.client.run_report(
+                            request
+                        )
+                    except Exception as report_err:
+                        # If dimension_filter is unsupported on this specific dimension, fall back to unfiltered scan
+                        if use_filter and "filter" in str(report_err).lower():
+                            print(
+                                f"Dimension filter unsupported on '{dim}', "
+                                f"falling back to full scan: {report_err}"
+                            )
+                            use_filter = False
+                            offset = 0
+                            continue
+                        raise report_err
 
                     rows_returned = len(
                         response.rows
@@ -258,6 +295,7 @@ class GA4Client:
                     print(
                         f"GA4 dimension scan | "
                         f"dimension={dim} | "
+                        f"filtered={use_filter} | "
                         f"offset={offset} | "
                         f"rows_returned={rows_returned} | "
                         f"total_rows={total_rows}"
