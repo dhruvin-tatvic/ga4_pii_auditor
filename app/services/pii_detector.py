@@ -29,19 +29,6 @@ class PIIDetector:
             flags=re.IGNORECASE
         )
 
-        # ---------------------------------------------------------
-        # NAME
-        # ---------------------------------------------------------
-        self.name_regex = re.compile(
-            r'\b(?:name|child_name|childname|full_name|fullname|'
-            r'first_name|firstname|last_name|lastname|'
-            r'customer_name|customername|user_name|username|'
-            r'contact_name|contactname)'
-            r'\b\s*[:=]\s*[-_/\'"]*'
-            r'[A-Za-z]+(?:[-_.\' +]+[A-Za-z]+){0,3}',
-            flags=re.IGNORECASE
-        )
-
     def scan_value(self, value):
         try:
             if not value or not isinstance(value, str):
@@ -89,20 +76,6 @@ class PIIDetector:
 
                     item = {
                         "type": "Phone Number",
-                        "matched_string": m.group(0)
-                    }
-
-                    if item not in found_pii:
-                        found_pii.append(item)
-
-            # -----------------------------------------------------
-            # NAME
-            # -----------------------------------------------------
-            for scan_text in values_to_scan:
-                for m in self.name_regex.finditer(scan_text):
-
-                    item = {
-                        "type": "Name",
                         "matched_string": m.group(0)
                     }
 

@@ -15,10 +15,9 @@ from app.services.pii_detector import PIIDetector
 from app.utils.auth import get_oauth_creds
 
 # Server-side GA4 RE2 regex pre-filter for candidate PII.
-# Matches emails (@ or %40), phone keywords, or name keywords with assignment delimiters.
+# Matches emails (@ or %40) or phone keywords with assignment delimiters.
 GA4_PII_CANDIDATE_REGEX = (
-    r"(@|%40|\b((child_?|full_?|first_?|last_?|customer_?|user_?|contact_?)?name|"
-    r"phone(_?number|_?no)?|mobile(_?number|_?no)?)\b\s*([:=]|%3[daDA]))"
+    r"(@|%40|\b(phone(_?number|_?no)?|mobile(_?number|_?no)?)\b\s*([:=]|%3[daDA]))"
 )
 
 
