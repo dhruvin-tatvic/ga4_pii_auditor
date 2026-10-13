@@ -553,7 +553,7 @@
                                 </td>
                                 <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
                                     <strong style="color: #111111;">Review:</strong>
-                                    Check the affected dimensions to identify the source of the PII and determine how it is being passed to Google Analytics.
+                                    Check the affected dimensions and flagged values to identify the source of PII and determine how it is being passed to Google Analytics.
                                 </td>
                             </tr>
                             <tr>
@@ -564,24 +564,31 @@
                                     <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
                                 </td>
                                 <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
-                                    <strong style="color: #111111;">Fix:</strong>
-                                    Identify and remove PII at the source before it is sent to Google Analytics. For web streams, GA4 Data Redaction can also be configured to redact email addresses and specified URL query parameters.
-                                    <a href="https://support.google.com/analytics/answer/6366371?hl=en" style="color: #7500FF; text-decoration: underline;">Best practices to avoid sending PII in GA4</a>
+                                    <strong style="color: #111111;">Fix at Source:</strong>
+                                    Remove or mask PII before it is sent to GA4. Review form submissions, URL parameters, page titles, referrers, and event parameters to ensure that email addresses, phone numbers, or other personal information are not included in event data. For web streams, configure GA4 Data Redaction to redact email addresses and specified URL query parameters where applicable.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="recommendation-spacer" style="height: 12px; line-height: 12px; font-size: 0; padding: 0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
+                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
+                                </td>
+                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    <strong style="color: #111111;">Review Custom Dimensions:</strong>
+                                    Identify any custom dimensions that capture or expose PII through event parameters, user properties, or URL-related values. If a custom dimension is linked to a parameter containing PII, update the website or tagging configuration to prevent the PII from being collected. Where the dimension is unnecessary, remove or discontinue its use.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="recommendation-spacer" style="height: 14px; line-height: 14px; font-size: 0; padding: 0;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="font-size: 14px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
+                                    <strong style="color: #111111;">Reference:</strong>
+                                    <a href="https://support.google.com/analytics/answer/6366371" style="color: #7500FF; text-decoration: underline;" target="_blank">Best practices to avoid sending PII in GA4</a>
                                     |
-                                    <a href="https://support.google.com/analytics/answer/13544947?hl=en" style="color: #7500FF; text-decoration: underline;">GA4 Data Redaction</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2" class="recommendation-spacer" style="height: 12px; line-height: 12px; font-size: 0; padding: 0;">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td class="recommendation-check-cell" style="width: 26px; padding-top: 2px; vertical-align: top;">
-                                    <span class="recommendation-check" style="display: inline-block; width: 22px; height: 22px; border-radius: 50%; background-color: #7500FF; color: #ffffff; text-align: center; line-height: 22px; font-size: 13px; font-weight: 700; font-family: Arial, Helvetica, sans-serif;">&#10003;</span>
-                                </td>
-                                <td class="recommendation-text-cell" style="padding-left: 12px; font-size: 15px; line-height: 1.7; color: #676767; vertical-align: top; font-family: 'Trebuchet MS', 'Segoe UI', Helvetica, Arial, sans-serif;">
-                                    <strong style="color: #111111;">Data Deletion Request:</strong>
-                                    If PII has already been collected, submit a GA4 Data Deletion Request to remove the affected parameter values for the relevant date range.
-                                    <a href="https://support.google.com/analytics/answer/9940393?hl=en" style="color: #7500FF; text-decoration: underline;">GA Data Delete Requests</a>
+                                    <a href="https://support.google.com/analytics/answer/13544947" style="color: #7500FF; text-decoration: underline;" target="_blank">GA4 Data Redaction</a>
                                 </td>
                             </tr>
                         </table>
