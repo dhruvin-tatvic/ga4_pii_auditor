@@ -21,7 +21,7 @@ class ExcelGenerator:
         """
         wb = openpyxl.Workbook()
         ws = wb.active
-        ws.title = "PII Leaks Report"
+        ws.title = "PII Detection Report"
 
         # Write header
         headers = ["Dimension", "Flagged Value", "PII Type"]
@@ -46,7 +46,7 @@ class ExcelGenerator:
 
         # Generate a safe filename
         safe_client_name = "".join([c if c.isalnum() else "_" for c in client_name])
-        filename = f"PII_Leaks_{safe_client_name}_{property_id}.xlsx"
+        filename = f"PII_Detected_{safe_client_name}_{property_id}.xlsx"
         filepath = os.path.join(self.temp_dir, filename)
         
         wb.save(filepath)
