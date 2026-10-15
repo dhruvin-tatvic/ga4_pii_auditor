@@ -85,10 +85,10 @@ def _process_targets_in_chunks(targets, ga4_client_manager, report_generator, em
                 display_start = parsed_start_date.strftime("%d-%m-%Y")
                 display_end = end_date.strftime("%d-%m-%Y")
             else:
-                end_date_obj = datetime.date.today()
+                end_date_obj = datetime.date.today() - datetime.timedelta(days=1)
                 start_date_obj = end_date_obj - datetime.timedelta(days=14)
-                start_date_query = "14daysAgo"
-                end_date_query = "today"
+                start_date_query = start_date_obj.strftime("%Y-%m-%d")
+                end_date_query = end_date_obj.strftime("%Y-%m-%d")
                 display_start = start_date_obj.strftime("%d-%m-%Y")
                 display_end = end_date_obj.strftime("%d-%m-%Y")
 
@@ -208,11 +208,11 @@ def run_single_audit(payload):
         display_start = parsed_start_date.strftime("%d-%m-%Y")
         display_end = parsed_end_date.strftime("%d-%m-%Y")
     else:
-        # Fallback to last 15 days if dates are not provided correctly
-        end_date_obj = datetime.date.today()
+        # Fallback to last 15 days (excluding today) if dates are not provided correctly
+        end_date_obj = datetime.date.today() - datetime.timedelta(days=1)
         start_date_obj = end_date_obj - datetime.timedelta(days=14)
-        start_date_query = "14daysAgo"
-        end_date_query = "today"
+        start_date_query = start_date_obj.strftime("%Y-%m-%d")
+        end_date_query = end_date_obj.strftime("%Y-%m-%d")
         display_start = start_date_obj.strftime("%d-%m-%Y")
         display_end = end_date_obj.strftime("%d-%m-%Y")
 
