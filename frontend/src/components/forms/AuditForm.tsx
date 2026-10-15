@@ -206,6 +206,7 @@ export function AuditForm() {
                   <option value="premium@tatvic.com">Premium (premium@tatvic.com)</option>
                   <option value="enterprise@tatvic.com">Enterprise (enterprise@tatvic.com)</option>
                   <option value="tvsm@tatvic.com">TVS (tvsm@tatvic.com)</option>
+                  <option value="Adani">Adani</option>
                   <option value="dhruvin@tatvic.com">Dhruvin (dhruvin@tatvic.com)</option>
                 </select>
               </div>

@@ -17,6 +17,7 @@ TOKEN_PREM = os.getenv("TOKEN_PREM")
 TOKEN_ENTERPRISE = os.getenv("TOKEN_ENTERPRISE")
 TOKEN_DATA_ANALYTICS = os.getenv("TOKEN_DATA_ANALYTICS")
 TOKEN_TVS = os.getenv("TOKEN_TVS")
+TOKEN_ADANI = os.getenv("TOKEN_ADANI")
 TOKEN_GMAIL = os.getenv("TOKEN_GMAIL")
 
 ACCESS_TOKENS = {
@@ -25,6 +26,9 @@ ACCESS_TOKENS = {
     "enterprise@tatvic.com": TOKEN_ENTERPRISE,
     "data.analytics@tatvic.com": TOKEN_DATA_ANALYTICS,
     "tvsm@tatvic.com": TOKEN_TVS,
+    "Adani": TOKEN_ADANI,
+    "adani": TOKEN_ADANI,
+    "tatvicanalysis@gmail.com": TOKEN_ADANI,
 }
 
 if not OAUTH_CREDENTIALS_JSON and GCP_PROJECT:

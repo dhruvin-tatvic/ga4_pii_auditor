@@ -33,8 +33,16 @@ def get_oauth_creds(access_email=None):
         except Exception:
             pass
 
-    if access_email and ACCESS_TOKENS.get(access_email):
-        refresh_token = ACCESS_TOKENS.get(access_email)
+    token = None
+    if access_email:
+        token = (
+            ACCESS_TOKENS.get(access_email)
+            or ACCESS_TOKENS.get(access_email.strip())
+            or ACCESS_TOKENS.get(access_email.strip().lower())
+        )
+
+    if token:
+        refresh_token = token
         scopes = ["https://www.googleapis.com/auth/analytics.readonly"]
     elif OAUTH_CREDENTIALS_JSON:
         creds_data = json.loads(OAUTH_CREDENTIALS_JSON)
